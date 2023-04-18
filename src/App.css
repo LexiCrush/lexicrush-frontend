@@ -1,0 +1,128 @@
+.App {
+  text-align: center;
+  
+}
+
+.Auth-form-container {
+  margin-top: -150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150vw;
+  height: 150vh;
+}
+
+.Auth-form {
+  width: 420px;
+  box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  border-radius: 8px;
+  background-color: #F0F8FF;
+}
+
+.Auth-form-content {
+  padding-left: 12%;
+  padding-right: 12%;
+}
+
+.Auth-form-title {
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 24px;
+  color: rgb(34, 34, 34);
+  font-weight: 800;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(34, 34, 34);
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.Auth-header {
+  background-color: #c6ad1e;
+}
+
+@font-face {
+  font-family: 'retro-gaming-font';
+  src: url('/Users/armaan/Desktop/test/src/fonts/siller.otf') format('truetype');
+}
+
+.letter {
+  display: inline-block;
+  animation-name: lexicrush;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  font-family: 'retro-gaming-font', sans-serif;
+}
+
+@keyframes lexicrush {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+.l { animation-delay: 0s; }
+.e { animation-delay: 0.1s; }
+.x { animation-delay: 0.2s; }
+.i { animation-delay: 0.3s; }
+.c { animation-delay: 0.4s; }
+.r { animation-delay: 0.5s; }
+.u { animation-delay: 0.6s; }
+.s { animation-delay: 0.7s; }
+.h { animation-delay: 0.8s; }
+
+.random-letter {
+  position: absolute;
+  color: black;
+  font-size: 0.5em;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  margin-top: -100px;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+  max-width: 40%;
+  margin-top: -175px;
+}
+
+.button-container {
+  margin-top: 40px;
+}
+
+
+
+
+
+
+
+
+

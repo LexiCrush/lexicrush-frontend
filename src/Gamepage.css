@@ -1,0 +1,320 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #361640;
+}
+  
+.container {
+    position: absolute;
+    height: 500px;
+    width: 500px;
+    background-color: rgba(255, 255, 255, 0.05);
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+}
+  
+.center {
+    transform: translateX(-50%);
+    left: 50%;
+}
+
+.stars {
+    position: absolute;
+    background-color: #ffffff;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    top: 149.92px;
+    left: 60px;
+    box-shadow: 69.92px 149.92px #ffffff, 89.92px -100px #ffffff,
+    280px 249.92px #ffffff, 380px 120px #ffffff, 60px 260px #ffffff;
+    animation: twinkle 3s infinite;
+}
+
+@keyframes twinkle {
+    50% {
+      opacity: 0.2;
+    }
+  }
+
+.planet {
+    height: 200px;
+    width: 200px;
+    background-color: #f5d201;
+    border-radius: 50%;
+    position: absolute;
+    top: 45px;
+    left: 220px;
+}
+
+.planet:before {
+    position: absolute;
+    content: "";
+    background-color: #fcec8e;
+    height: 20px;
+    width: 110px;
+    border-radius: 10px;
+    top: 48px;
+    left: 68px;
+    box-shadow: 22.72px 58.4px 0 -4px #fcec8e, -20px 76px 0 0.12em #fcec8e;
+}
+.planet:after {
+    position: absolute;
+    content: "";
+    background-color: #edb514;
+    height: 12px;
+    width: 40px;
+    border-radius: 7.36px;
+    top: 29.92px;
+    left: 48px;
+    box-shadow: -20px 60px 0 5.92px #edb514,  65.12px 134.88px 0 1.92px #edb514;
+}
+
+.shadow {
+    position: absolute;
+    background-color: transparent;
+    box-shadow: 14.88px 14.88px rgba(134, 123, 5, 0.3);
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    bottom: 14.88px;
+    right: 14.88px;
+}
+
+.astronaut {
+    position: absolute;
+    height: 280px;
+    width: 249.92px;
+    top: 120px;
+    left: 100px;
+    transform: translateX(350px) rotate(-30deg);
+    animation: orbit 8s linear infinite;
+    transform-origin: 50% 50%;
+}
+
+@keyframes orbit {
+    from {
+        transform: translateX(350px) rotate(-30deg);
+    }
+    to {
+        transform: translateX(350px) rotate(330deg);
+    }
+}
+
+.suit {
+    position: absolute;
+    background-color: #e2e9f4;
+    height: 100px;
+    width: 100px;
+    border-radius: 10%;
+    top: 88px;
+}
+
+.tank {
+    position: absolute;
+    background-color: #aec3d2;
+    height: 120px;
+    width: 120px;
+    top: 80px;
+    border-radius: 9.92px;
+}
+
+.helmet {
+    background-color: #e2e9f4;
+    height: 93.04px; 
+    width: 100px; 
+    position: absolute;
+    top: -86.88px; 
+    border-radius: 45%;
+}
+.helmet:before {
+    position: absolute;
+    content: "";
+    background-color: #64c1f7;
+    height: 60px;
+    width: 80px;
+    border-radius: 60% 60% 40% 40%;
+    left: 9.92px;
+    top: 6.88px;
+}
+
+.helmet:after {
+    content: "";
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.3);
+    height: 14.88px;
+    width: 14.88px;
+    border-radius: 50%;
+    left: 20px;
+    top: 24.96px;
+}
+
+.buttons {
+    background-color: #bdd3f3;
+    width: 54.88px;
+    height: 29.92px;
+    border-radius: 8px;
+    position: absolute;
+    top: 24.96px;
+}
+
+.buttons:after {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    background-color: #a769d7;
+    border-radius: 50%;
+    top: 9.92px;
+    left: 4px;
+    box-shadow: 17.92px 0 #7e1ffb, 36px 0 #441be6;
+}
+
+.buttons:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: #aec3d2;
+    top: 40px;
+    left: 17.92px;
+}
+
+.hand-l,
+.hand-r {
+    position: absolute;
+    height: 25.92px;
+    width: 74.88px;
+    background-color: #e2e9f4;
+    border-radius: 40px;
+    top: -9.92px;
+}
+.hand-l {
+    transform: rotate(20deg);
+    left: -49.92px;
+}
+
+.hand-r {
+    transform: rotate(-20deg);
+    right: -49.92px;
+}
+.hand-l:before,
+.hand-r:before {
+    position: absolute;
+    content: "";
+    height: 25.92px;
+    width: 76.96px;
+    background-color: #e2e9f4;
+    border-radius: 25.92px;
+    bottom: 25.92px;
+}
+.hand-l:before {
+    right: 29.92px;
+    transform: rotate(-90deg);
+}
+.hand-r:before {
+    left: 29.92px;
+    transform: rotate(90deg);
+}
+.hand-l:after,
+.hand-r:after {
+    position: absolute;
+    content: "";
+    background-color: #e62c1b;
+    height: 5.44px;
+    width: 28px;
+    border-radius: 12.96px;
+    top: -24.96px;
+}
+.hand-l:after {
+    left: -6.88px;
+}
+.hand-r:after {
+    right: -6.88px;
+}
+
+.leg-l,
+.leg-r {
+  height: 100px;
+  width: 40px;
+  background-color: #e2e9f4;
+  position: absolute;
+  top: 80px;
+}
+.leg-l {
+  left: -12px;
+  transform: rotate(20deg);
+}
+.leg-r {
+  right: -12px;
+  transform: rotate(-20deg);
+}
+.leg-l:before,
+.leg-r:before {
+  position: absolute;
+  content: "";
+  background-color: #ffffff;
+  width: 42.88px;
+  height: 34.88px;
+  border-radius: 50% 50% 0 0;
+  top: 64.96px;
+  left: -1.44px;
+}
+.leg-l:after,
+.leg-r:after {
+  position: absolute;
+  content: "";
+  background-color: #e62c1b;
+  width: 44.96px;
+  height: 4.96px;
+  border-radius: 16px;
+  bottom: -1.66px;
+  left: -2.4px;
+}
+
+.pipe {
+    position: absolute;
+    background-color: transparent;
+    height: 40px;
+    width: 100px;
+    border: 9.92px solid #ab3cf0;
+    border-top: none;
+    border-radius: 0 0 60px 29.92px;
+    left: 44.96px;
+    top: 72px;
+}
+
+.pipe:before {
+    position: absolute;
+    content: "";
+    background-color: transparent;
+    height: 40px;
+    width: 44.96px;
+    border: 9.92px solid #ab3cf0;
+    border-left: none;
+    border-bottom: none;
+    top: -49.6px;
+    left: 54.72px;
+    border-radius: 0 40px 0 0;
+}
+
+.rounded {
+    border-radius: 50px;
+    background-color: #29103e;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    transform: translateX(0px) translateY(40px);
+
+}
+
+@font-face {
+    font-family: 'ButtonFont';
+    src: url('/Users/armaan/Desktop/test/src/fonts/siller.otf') format('truetype');
+  }
+  
+

@@ -1,0 +1,15 @@
+.bomb-timer {
+  /* margin-top: 55px; */
+  animation: motion 3s ease-in-out infinite;
+  font-family: 'aom';
+  font-size: 74px;
+  text-align: center;
+  text-shadow: .1cm .1cm 0.2cm #000000;
+  color: #ffffff;
+
+}
+
+@font-face {
+  font-family: 'lg';
+  src: url('/Users/armaan/Desktop/test/src/fonts/LuckiestGuy.ttf') format('truetype');
+  }

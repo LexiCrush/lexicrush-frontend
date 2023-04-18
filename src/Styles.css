@@ -1,0 +1,24 @@
+.Object {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .floating-image {
+    position: absolute;
+    top: 0;
+    animation: float 3s ease-in-out forwards;
+    width: 200px;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(45vh) translateX(-60px);
+    }
+  }
+
+

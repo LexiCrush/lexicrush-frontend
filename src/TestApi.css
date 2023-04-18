@@ -1,0 +1,336 @@
+*{
+    padding:0px;
+    margin:0px;
+    box-sizing:border-box;
+}
+
+@font-face {
+    font-family: 'ButtonFont';
+    src: url('/Users/armaan/Desktop/test/src/fonts/siller.otf') format('truetype');
+  }
+  
+@font-face {
+    font-family: 'aom';
+    src: url('/Users/armaan/Desktop/test/src/fonts/aom.otf') format('truetype');
+  }
+
+@font-face {
+font-family: 'lg';
+src: url('/Users/armaan/Desktop/test/src/fonts/LuckiestGuy.ttf') format('truetype');
+}
+
+.form{
+    width:100%;
+    height:50px;
+    position:relative;
+    overflow:hidden;
+    margin-bottom:10px;
+    /* font-family: "ButtonFont"; */
+    
+}
+.form input{
+    width:100%;
+    height:100%;
+    color:#600d63;
+    padding-top:25px;
+    border:none;
+    outline:none;
+    font-family: "ButtonFont";
+}
+.form label {
+    position: absolute;
+    width:100%;
+    height:100%;
+    bottom:0px;
+    left:0%;
+    pointer-events:none;
+    border-bottom:1px solid black;
+    font-family: "aom";
+}
+
+
+.form label::after{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    border-bottom:3px solid #6c17c1;
+    bottom:-1px;
+    left:0px;
+    transform:translateX(-100%);
+    transition:all 0.5s ease;
+    
+}
+.content-name{
+    position:absolute;
+    bottom:5px;
+    left:0px;
+    transition:all .3s ease;
+
+}
+.form input:focus + .label-name .content-name ,
+.form input:valid+ .label-name .content-name{
+    transform:translateY(-150%);
+    font-size:17px;
+    color:#460d64;
+    font-family: "aom";
+    
+}
+.form input:focus+ .label-name::after, 
+.form input:valid+ .label-name::after {
+    transform:translateX(0%);
+     
+  }
+
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.canvas {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: -300px
+
+}
+
+.fly {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: motion 2s ease-in-out infinite;
+
+}
+
+.alien {
+    position: absolute;
+    background: #8b50cb;
+    width: 15vmin;
+    height: 7vmin;
+    border-radius: 45%;
+}
+
+.alien::before {
+    content: "";
+    position: absolute;
+    background:  #8b50cb;
+    top: -3vmin;
+    left: 2.5vmin;
+    width: 10vmin;
+    height: 7vmin;
+    border-radius: 50%;
+    z-index: -1;
+    box-shadow: inset -.7vmin 0 .5vmin #553382, 
+    inset .7vmin 0 .5vmin #553382;
+}
+
+.alien::after {
+    content: "";
+    position: absolute;
+    top: 2vmin;
+    left: 2vmin;
+    background: #914bbd;
+    width: 2vmin;
+    height: 2vmin;
+    border-radius: 50%;
+    filter: blur(.6vmin);
+    box-shadow: 9vmin 0 0 #823433;
+}
+
+.topLeft {
+    position: absolute;
+    top: -3vmin;
+    width: 4vmin;
+    height: 5vmin;
+    border-radius: 100% 54% 10% 50% / 70% 10% 30% 30%;
+    border-top: 1.5vmin solid  #8b50cb;
+    transform: rotate(30deg);
+    z-index: -2;
+}
+
+.topLeft::before {
+    content: "";
+    position: absolute;
+    background: #8b50cb;
+    top: -1vmin;
+    left: -1vmin;
+    width: 2vmin;
+    height: 2vmin;
+    border-radius: 50%;
+    box-shadow: inset -.2vmin -.2vmin 1vmin #553382;
+}
+
+.topRight {
+    position: absolute;
+    top: -3vmin;
+    right: 0;
+    width: 4vmin;
+    height: 5vmin;
+    border-radius: 100% 54% 10% 50% / 70% 10% 30% 30%;
+    border-top: 1.5vmin solid  #8b50cb;
+    transform: scaleX(-1) rotate(30deg);
+    z-index: -2;
+}
+
+.topRight::before {
+    content: "";
+    position: absolute;
+    background:  #8b50cb;
+    top: -1vmin;
+    left: -1vmin;
+    width: 2vmin;
+    height: 2vmin;
+    border-radius: 50%;
+    box-shadow: inset -.2vmin -.2vmin 1vmin #8b50cb;
+}
+
+.eyes {
+    position: absolute;
+    left: 5vmin;
+    background: #000;
+    width: 1vmin;
+    height: 1vmin;
+    border-radius: 50%;
+    box-shadow: 4vmin 0 0 #000;
+}
+
+.eyebrows {
+    position: absolute;
+    top: -1vmin;
+    left: 5vmin;
+    background: #000;
+    width: .7vmin;
+    height: .3vmin;
+    box-shadow: 4vmin 0 0 #000;
+}
+
+.mouth {
+    position: absolute;
+    background: #000;
+    bottom: 5vmin;
+    left: 6.5vmin;
+    width: 2vmin;
+    height: .5vmin;
+}
+
+.helm {
+    position: absolute;
+    background: #C9E4C5;
+    top: -11vmin;
+    width: 20vmin;
+    height: 15vmin;
+    border-radius: 50%;
+    z-index: 1;
+    opacity: .4;
+    box-shadow: inset 1.5vmin .5vmin 1vmin #fff;
+}
+
+.middle {
+    position: absolute;
+    top: 2vmin;
+    left: -7vmin;
+    background: #462762;
+    width: 14vmin;
+    height: 2vmin;
+    z-index: 1;
+}
+
+.middle::before {
+    content: "";
+    position: absolute;
+    background: #FFE194;
+    left: 4vmin;
+    width: 6vmin;
+    height: 2vmin;
+}
+
+.glitter {
+    position: absolute;
+    left: -8vmin;
+    top: -6vmin;
+    background: #fff;
+    width: 1.5vmin;
+    height: 4.5vmin;
+    border-radius: 50%;
+    transform: rotate(15deg);
+    z-index: 1;
+}
+
+.glitter::before {
+    content: "";
+    position: absolute;
+    top: -2vmin;
+    left: 1vmin;
+    background: #fff;
+    width: 1.5vmin;
+    height: 1.5vmin;
+    border-radius: 50%;
+}
+
+.ufo {
+    position: absolute;
+    top: -3vmin;
+    background: #582a7e;
+    width: 45vmin;
+    height: 18vmin;
+    border-radius: 50%;
+    z-index: -2;
+    box-shadow: inset 0 -1.5vmin 2vmin #4c2d96,
+    inset .5vmin 1vmin 3vmin #fff;
+}
+
+.ufo::before {
+    content: "";
+    position: absolute;
+    top: 1.5vmin;
+    left: 12.5vmin;
+    background: #512296;
+    width: 20vmin;
+    height: 7vmin;
+    border-radius: 50%;
+    box-shadow: inset 0 -.5vmin 2vmin #4F0E0E;
+}
+
+.legs {
+    position: absolute;
+    background: #334257;
+    bottom: 0;
+    left: 4vmin;
+    width: 3.5vmin;
+    height: 4vmin;
+    border-radius: 62% 38% 79% 21% / 100% 29% 71% 0%;
+    box-shadow: inset .5vmin -1vmin .5vmin #8f54a8,
+    inset .1vmin .2vmin .5vmin #000;
+}
+
+.legs::before {
+    content: "";
+    position: absolute;
+    background: #334257;
+    bottom: 0;
+    left: 32vmin;
+    width: 3.5vmin;
+    height: 4vmin;
+    transform: scaleX(-1);
+    border-radius: 62% 38% 79% 21% / 100% 29% 71% 0%;
+    box-shadow: inset .5vmin -1vmin .5vmin  #8f54a8,
+    inset .1vmin .2vmin .5vmin #000;
+}
+
+@keyframes motion {
+    0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+}

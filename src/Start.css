@@ -1,0 +1,38 @@
+@import "https://codepen.io/DXC/pen/6e5e17a21aa0f1f0df762d0c800aee8b.css";
+
+/* body {
+	background-color: #b706ed;
+	margin: 0;
+} */
+
+.scene {
+	width: 100%;
+	height: 100vh;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(1, 1);
+}
+
+.rounded-button { 
+    border-radius: 50px;
+    background-color: #29103e;
+    color: #fff;
+    padding: 30px 60px;
+    cursor: pointer;
+    border: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    
+}
+
+.rounded-button:hover {
+    background-color: #fff;
+    color: #29103e;
+}
+@font-face {
+    font-family: 'ButtonFont';
+    src: url('/Users/armaan/Desktop/test/src/fonts/siller.otf') format('truetype');
+  }

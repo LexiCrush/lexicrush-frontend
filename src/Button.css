@@ -1,0 +1,24 @@
+.Button {
+    background-color: #f3c2da;
+    border: none;
+    border-radius: 30px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #333333;
+    transition: background-color 0.3s ease-in-out
+}
+  
+.Button:hover {
+    background-color: #333333;
+    text-shadow: none;
+}
+
+.ButtonContainer button {
+    margin-right: 40px;
+    margin-left: 40px;
+}
