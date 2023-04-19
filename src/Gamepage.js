@@ -16,7 +16,7 @@ function Gamepage() {
 
 
   if (goToShortest) {
-    return <Navigate to="/shortest" />;
+    return <Navigate to="/TestApi" />;
   }
 
   if (goToLongest) {
@@ -43,10 +43,12 @@ function Gamepage() {
         </div>
       </div>
     </div>
-    {/* <button className="rounded" onClick={handleShortestClick} style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
+
+    <button className="rounded" onClick={handleShortestClick} style={{ display: 'block',marginBottom : '10px', fontFamily: 'ButtonFont'}}>  
       Shortest Word Mode
-    </button> */}
-    <button className="rounded-button" onClick={handleLongestClick} style={{ display: 'block', fontFamily: 'ButtonFont'}}>
+    </button>
+
+    <button className="rounded" onClick={handleLongestClick} style={{ display: 'block', fontFamily: 'ButtonFont'}}>
       Longest Word Mode
     </button>
     
