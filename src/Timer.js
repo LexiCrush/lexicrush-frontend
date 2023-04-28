@@ -15,9 +15,16 @@ export default function Timer() {
     return () => clearInterval(intervalId);
   }, [isActive, seconds]);
 
+  useEffect(() => {
+    if (seconds === 0) {
+      setIsActive(false);
+      window.location.reload();
+    }
+  }, [seconds]);
+
   const minutes = Math.floor(seconds / 60);
   const paddedSeconds = (seconds % 60).toString().padStart(2, '0');
-  
+
   const handleStop = () => {
     setIsActive(false);
   };

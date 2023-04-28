@@ -28,6 +28,9 @@ function EnterAnswer() {
       axios.get('http://localhost:8080/api/bots')
         .then(response => {
           setBotAnswer(response.data);
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         })
         .catch(error => console.error(error));
     }
@@ -56,7 +59,7 @@ function EnterAnswer() {
 
     }
   }
-
+  
   return (
     <div className="background">
       <div class="scene">
