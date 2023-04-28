@@ -2,8 +2,6 @@ import './App.css';
 import Start from "./Start"
 import Auth from "./Auth"
 import Gamepage from "./Gamepage"
-import Shortest from './Shortest';
-import Longest from './Longest';
 import TestAPI from './TestAPI';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 
@@ -37,8 +35,6 @@ function App() {
             <Route path= "/" element={<Start />} />
             <Route path= "/login" element={<Auth />} />
             <Route path= "/gamepage" element={<Gamepage />} />
-            <Route path= "/shortest" element={<Shortest />} />
-            <Route path= "/longest" element={<Longest />} />
             <Route path= "/testapi" element={<TestAPI />} />
           </Routes>
         </Router>

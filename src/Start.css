@@ -48,7 +48,7 @@ body {
   
     animation: glitch 500ms infinite;
 }
-  
+
   .glitch span {
     position: absolute;
     top: 0;
