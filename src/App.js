@@ -2,7 +2,7 @@ import './App.css';
 import Start from "./Start"
 import Auth from "./Auth"
 import Gamepage from "./Gamepage"
-import TestAPI from './TestAPI';
+import Play from './Play';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 
 function App() {
@@ -35,7 +35,7 @@ function App() {
             <Route path= "/" element={<Start />} />
             <Route path= "/login" element={<Auth />} />
             <Route path= "/gamepage" element={<Gamepage />} />
-            <Route path= "/testapi" element={<TestAPI />} />
+            <Route path= "/play" element={<Play />} />
           </Routes>
         </Router>
       </header>

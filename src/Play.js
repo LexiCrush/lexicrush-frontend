@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import "./TestApi.css"
+import "./Play.css"
 import Timer from "./Timer"
 
 function EnterAnswer() {

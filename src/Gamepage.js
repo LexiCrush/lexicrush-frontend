@@ -16,11 +16,11 @@ function Gamepage() {
 
 
   if (goToShortest) {
-    return <Navigate to="/TestApi" />;
+    return <Navigate to="/play" />;
   }
 
   if (goToLongest) {
-    return <Navigate to="/TestApi" />;
+    return <Navigate to="/play" />;
   }
 
   return (

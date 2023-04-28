@@ -17,6 +17,7 @@ export default function Timer() {
 
   const minutes = Math.floor(seconds / 60);
   const paddedSeconds = (seconds % 60).toString().padStart(2, '0');
+  
   const handleStop = () => {
     setIsActive(false);
   };
