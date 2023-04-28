@@ -23,6 +23,11 @@ function Start() {
       <button className="rounded-button" onClick={handleButtonClick} style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
         Play
       </button> 
+      <h1 className="glitch"  style={{fontFamily: 'ButtonFont'}}>
+        <span aria-hidden="true">Lexicrush</span>
+        Lexicrush
+        <span aria-hidden="true">Lexicrush</span>
+      </h1>
     </div>	
   </div>
   );

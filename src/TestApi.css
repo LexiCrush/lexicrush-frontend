@@ -6,17 +6,17 @@
 
 @font-face {
     font-family: 'ButtonFont';
-    src: url('/Users/armaan/Desktop/test/src/fonts/siller.otf') format('truetype');
+    src: url('/Users/nicolettethiro/git/test/src/fonts/siller.otf') format('truetype');
   }
   
 @font-face {
     font-family: 'aom';
-    src: url('/Users/armaan/Desktop/test/src/fonts/aom.otf') format('truetype');
+    src: url('/Users/nicolettethiro/git/test/src/fonts/aom.otf') format('truetype');
   }
 
 @font-face {
 font-family: 'lg';
-src: url('/Users/armaan/Desktop/test/src/fonts/LuckiestGuy.ttf') format('truetype');
+src: url('/Users/nicolettethiro/git/test/src/fonts/LuckiestGuy.ttf') format('truetype');
 }
 
 .form{

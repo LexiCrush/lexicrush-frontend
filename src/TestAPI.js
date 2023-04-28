@@ -90,6 +90,23 @@ function EnterAnswer() {
         }
         
       </div>
+      <div className="canvas">
+  <div className="fly">
+    <div className="helm"></div>
+    <div className="glitter"></div>
+    <div className="alien">
+      <div className="topLeft"></div>
+      <div className="topRight"></div>
+      <div className="eyes"></div>
+      <div className="eyebrows"></div>
+      <div className="mouth"></div>
+    </div>
+    <div className="middle"></div>
+    <div className="ufo">
+      <div className="legs"></div>
+    </div>
+  </div>
+</div>
     </div>
   );
 }

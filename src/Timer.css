@@ -1,6 +1,6 @@
 .bomb-timer {
   /* margin-top: 55px; */
-  animation: motion 3s ease-in-out infinite;
+  animation: motion 2s ease-in-out infinite;
   font-family: 'aom';
   font-size: 74px;
   text-align: center;
@@ -11,5 +11,5 @@
 
 @font-face {
   font-family: 'lg';
-  src: url('/Users/armaan/Desktop/test/src/fonts/LuckiestGuy.ttf') format('truetype');
+  src: url('/Users/nicolettethiro/git/test/src/fonts/LuckiestGuy.ttf') format('truetype');
   }
