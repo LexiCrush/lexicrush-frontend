@@ -70,7 +70,7 @@ label {
 
 @font-face {
   font-family: 'retro-gaming-font';
-  src: url('/Users/nicolettethiro/git/test/src/fonts/siller.otf') format('truetype');
+  src: url('./fonts/siller.otf') format('truetype');
 }
 
 .letter {

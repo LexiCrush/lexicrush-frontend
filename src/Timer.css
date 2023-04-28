@@ -11,5 +11,5 @@
 
 @font-face {
   font-family: 'lg';
-  src: url('/Users/nicolettethiro/git/test/src/fonts/LuckiestGuy.ttf') format('truetype');
+  src: url('./fonts/LuckiestGuy.ttf') format('truetype');
   }

@@ -34,7 +34,7 @@ body {
 }
 @font-face {
     font-family: 'ButtonFont';
-    src: url('/Users/nicolettethiro/git/test/src/fonts/siller.otf') format('truetype');
+    src: url('./fonts/siller.otf') format('truetype');
   }
 
 .glitch {

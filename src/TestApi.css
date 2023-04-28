@@ -1,18 +1,16 @@
-
-
 @font-face {
     font-family: 'ButtonFont';
-    src: url('/Users/nicolettethiro/git/test/src/fonts/siller.otf') format('truetype');
+    src: url('./fonts/siller.otf') format('truetype');
   }
   
 @font-face {
     font-family: 'aom';
-    src: url('/Users/nicolettethiro/git/test/src/fonts/aom.otf') format('truetype');
+    src: url('./fonts/aom.otf') format('truetype');
   }
 
 @font-face {
 font-family: 'lg';
-src: url('/Users/nicolettethiro/git/test/src/fonts/LuckiestGuy.ttf') format('truetype');
+src: url('./fonts/LuckiestGuy.ttf') format('truetype');
 }
 
 .form{
@@ -76,15 +74,14 @@ src: url('/Users/nicolettethiro/git/test/src/fonts/LuckiestGuy.ttf') format('tru
 .form input:valid+ .label-name::after {
     transform:translateX(0%);
      
-  }
+}
 
 
-  * {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 
 .canvas {
     position: relative;
