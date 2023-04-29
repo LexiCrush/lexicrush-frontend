@@ -25,9 +25,18 @@ function PlayGame() {
 
   useEffect(() => { // if the user gets the answer correct, the bot will respond
     if (points > 0) {
-      axios.get('http://localhost:8080/api/bots')
+      axios.get('http://localhost:8080/api/bot', {
+      params: {
+        question: currentQuestion
+      }
+    }, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    })
         .then(response => {
           setBotAnswer(response.data);
+          console.log('Bot Answer:', botAnswer);
           setTimeout(() => {
             window.location.reload();
           }, 2000);
