@@ -7,14 +7,14 @@ function PlayGame() {
   const [currentQuestion, setCurrentQuestion] = useState('');  
   const [userInput, setUserInput] = useState('');
   const [currentAnswer, setAnswer] = useState('');
-
   const [points, setPoints] = useState(0);
   const [botAnswer, setBotAnswer] = useState(''); // [botAnswer, setBotAnswer
   const [helloVisible, setHelloVisible] = useState(false);
+  const [hint, setHint] = useState('');
+  const [hintVisible, setHintVisible] = useState(false);
 
 
-  useEffect(() => {
-
+  useEffect(() => { // get a new question
       axios.get('http://localhost:8080/api/getq')
         .then(response => {
           setCurrentQuestion(response.data);
@@ -30,20 +30,32 @@ function PlayGame() {
         question: currentQuestion
       }
     }, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
     })
         .then(response => {
           setBotAnswer(response.data);
           console.log('Bot Answer:', botAnswer);
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
+          // setTimeout(() => {
+          //   window.location.reload();
+          // }, 2000);
         })
         .catch(error => console.error(error));
     }
   }, [points]);
+
+  useEffect(() => { // retrieve a hint
+    axios.get('http://localhost:8080/api/hint', {
+      params: {
+        question: currentQuestion
+      }
+    }, {
+    })
+        .then(response => {
+          setHint(response.data);
+          console.log('Hint:', hint);
+        })
+        .catch(error => console.error(error));
+  }, [currentQuestion]);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -76,7 +88,8 @@ function PlayGame() {
       setBotAnswer(botAnswer); // add this line
     }
   }
-  
+
+
   return (
     <div className="background">
       <div class="scene">
@@ -97,23 +110,36 @@ function PlayGame() {
             <span className="content-name">LONGEST WORD MODE:</span>
           </label>
         </div>
+
+
+        <div>
+          <button onClick={() => {setHintVisible(true)}} style={{fontFamily: 'aom', fontSize: '40px', color: 'white', backgroundColor: 'purple', borderRadius: '10px', padding: '10px', margin: '45px'}}>
+            {hint}
+          </button>
+        </div>
+        
+        {/* {hintVisible &&
+          <div className="hint" style={{fontFamily: "aom", position : "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", color: "white", fontSize: "100px"}}>
+            {hint}
+          </div>
+        } */}
+        
         
         {helloVisible &&
           <div className="bottom" style={{color: "purple", fontFamily: "aom" }}>
             {points === 0 ? "SORRY! That is not in our database." : "CORRECT! " + points + " Points awarded."}
           </div>
         }
+        
         {botAnswer && 
             <div className="botAnswer" style={{color: "white", fontFamily: "aom" }}>
-            {"@ak2k2 chose: " + botAnswer}
+            {"@BOT123 Chose: " + botAnswer}
             </div>
         }
         
       </div>
     </div>
   );
-
-        
 }
 
 export default PlayGame;
