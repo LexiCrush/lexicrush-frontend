@@ -104,6 +104,7 @@ function PlayGame() {
         <div className="centered">
           <h1>{currentQuestion}</h1>
         </div>
+        
         <div className="form">
           <input type="text" name="name" required autoComplete="off" onKeyDown={handleKeyDown} onChange={handleChange} />
           <label htmlFor="name" className="label-name">
