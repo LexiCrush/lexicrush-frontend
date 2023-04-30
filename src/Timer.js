@@ -29,9 +29,12 @@ export default function Timer() {
     setIsActive(false);
   };
 
+  const timerDisplayClass = seconds <= 5 ? 'timer-display red' : 'timer-display';
+
+
   return (
     <div className="bomb-timer">
-      <div className="timer-display">
+      <div className={timerDisplayClass}>
         {minutes}:{paddedSeconds}
       </div>
       <div className="timer-controls"></div>

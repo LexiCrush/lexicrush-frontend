@@ -4,23 +4,23 @@ import "./Gamepage.css"
 
 
 function Gamepage() {
-  const [goToShortest, setGoToShortest] = React.useState(false);
-  const [goToLongest, setGoToLongest] = React.useState(false);
+  const [goToPlay, setGoToPlay] = React.useState(false);
+  const [goToProfile, setgoToProfile] = React.useState(false);
 
-  function handleShortestClick() {
-    setGoToShortest(true);
+  function handlePlayClick() {
+    setGoToPlay(true);
   }
-  function handleLongestClick() {
-    setGoToLongest(true);
-  }
-
-
-  if (goToShortest) {
-    return <Navigate to="/play" />;
+  function handleProfileClick() {
+    setgoToProfile(true);
   }
 
-  if (goToLongest) {
-    return <Navigate to="/play" />;
+
+  if (goToPlay) {
+    return <Navigate to="/longest" />;
+  }
+
+  if (goToProfile) {
+    return <Navigate to="/profile" />;
   }
 
   return (
@@ -43,13 +43,11 @@ function Gamepage() {
         </div>
       </div>
     </div>
-
-    <button className="rounded" onClick={handleShortestClick} style={{ display: 'block',marginBottom : '10px', fontFamily: 'ButtonFont'}}>  
-      Shortest Word Mode
+    <button className="rounded" onClick={handlePlayClick} style={{ display: 'block', marginBottom : '10px', fontFamily: 'ButtonFont'}}>  
+      Play
     </button>
-
-    <button className="rounded" onClick={handleLongestClick} style={{ display: 'block', fontFamily: 'ButtonFont'}}>
-      Longest Word Mode
+    <button className="profile-button" onClick={handleProfileClick} style={{ display: 'block', fontFamily: 'ButtonFont'}}>
+      Profile
     </button>
     
   </body>

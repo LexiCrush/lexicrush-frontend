@@ -1,8 +1,4 @@
-body {
-    padding: 0;
-    margin: 0;
-    background-color: #361640;
-}
+
   
 .container {
     position: absolute;
@@ -305,12 +301,33 @@ body {
     border-radius: 50px;
     background-color: #29103e;
     color: #fff;
-    padding: 20px 40px;
+    padding: 10px 30px;
     cursor: pointer;
     border: none;
-    transform: translateX(0px) translateY(40px);
-
+    transform: translateX(48px) translateY(30px);
 }
+
+.rounded:hover {
+    background-color: #fff;
+    color: #29103e;
+}
+  
+
+.profile-button {
+    border-radius: 50px;
+    background-color: #29103e;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    transform: translateX(-40px) translateY(60px);
+}
+
+.profile-button:hover {
+    background-color: #fff;
+    color: #29103e;
+}
+  
 
 @font-face {
     font-family: 'ButtonFont';

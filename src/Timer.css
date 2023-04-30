@@ -1,15 +1,29 @@
 .bomb-timer {
-  /* margin-top: 55px; */
-  animation: motion 2s ease-in-out infinite;
+  top: 10%;
+  left: 80%;
+  transform: translate(400%, 100%);
+  font-size: 35px;
+  font-weight: bold;
+  color: #ffffff;
+  font-family: 'time';
+  /* animation: motion 2s ease-in-out infinite;
   font-family: 'aom';
-  font-size: 74px;
+  font-size: 20px;
   text-align: center;
   text-shadow: .1cm .1cm 0.2cm #000000;
   color: #ffffff;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
 
 }
 
+.timer-display.red {
+  color: red;
+}
+
 @font-face {
-  font-family: 'lg';
-  src: url('./fonts/LuckiestGuy.ttf') format('truetype');
+  font-family: 'time';
+  src: url('./fonts/digital.ttf') format('truetype');
   }

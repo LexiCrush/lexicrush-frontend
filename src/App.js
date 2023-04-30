@@ -3,7 +3,10 @@ import Start from "./Start"
 import Auth from "./Auth"
 import Gamepage from "./Gamepage"
 import Play from './Play';
+import Longest from './Longest';
+import Test from './Test';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import Profile from './Profile';
 
 function App() {
   const headingStyle = {
@@ -36,6 +39,9 @@ function App() {
             <Route path= "/login" element={<Auth />} />
             <Route path= "/gamepage" element={<Gamepage />} />
             <Route path= "/play" element={<Play />} />
+            <Route path= "/longest" element={<Longest />} />
+            <Route path = "/test" element={<Test />} />
+            <Route path = "/profile" element={<Profile />} />
           </Routes>
         </Router>
       </header>

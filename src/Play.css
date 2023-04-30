@@ -100,7 +100,7 @@ src: url('./fonts/LuckiestGuy.ttf') format('truetype');
     animation: motion 2s ease-in-out infinite;
 
 }
-
+/* 
 .alien {
     position: absolute;
     background: #8b50cb;
@@ -326,4 +326,4 @@ src: url('./fonts/LuckiestGuy.ttf') format('truetype');
       100% {
         transform: translateY(0);
       }
-}
+} */
