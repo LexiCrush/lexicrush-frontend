@@ -1,7 +1,13 @@
+
 import React from 'react';
 import './Profile.css';
 
 function Profile() {
+  const token = localStorage.getItem('token');
+  const username = token.split('|')[0];
+  const userhandle = "@" + username;
+
+
   return (
 <div class="cent">
 <div class="card">
@@ -28,7 +34,7 @@ function Profile() {
       </svg>
     </div>
     <div class="more-info">
-      <h1>Username</h1>
+      <h1>{userhandle}</h1>
       <div class="stats">
         <div>
           <div class="title">Wins</div>
@@ -44,7 +50,7 @@ function Profile() {
     </div>
   </div>
   <div class="general">
-    <h1>Username</h1>
+    <h1>{userhandle}</h1>
     <span class="more">Hover for more info</span>
   </div>
 </div>
