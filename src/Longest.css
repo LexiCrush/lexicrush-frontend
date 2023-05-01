@@ -9,8 +9,8 @@
 }
 
 .timer-position {
-  position: absolute;
-  top: 25%;
+  position: relative;
+  top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 24px;
@@ -53,7 +53,7 @@
   height: 60px;
   overflow: hidden;
   width: 50px;
-  position: absolute;
+  position: relative;
   top: 45%;
   left: 50%;
   transform: translate(-47%, -30%);
@@ -61,7 +61,7 @@
   
 .av .av-eye {
     left: 50%;
-    position: absolute;
+    position: relative;
     transform: translateX(-50%);
     background-color: rgba(255, 255, 255, 1);
     border-radius: 50%;
@@ -72,7 +72,7 @@
   
 .av .av-eye:after {
     left: 50%;
-    position: absolute;
+    position: rel;
     transform: translateX(-50%);
     background-color: rgba(0, 128, 0, 1);
     border-radius: 50%;
@@ -114,7 +114,7 @@
     overflow: hidden;
     top: 57px;
     width: 50px;
-    position: absolute;
+    position: relative;
     top: 45%;
     left: 50%;
     transform: translate(-47%, -30%);
@@ -123,7 +123,7 @@
   
 .avbot .avbot-eye {
     left: 50%;
-    position: absolute;
+    position: relative;
     transform: translateX(-50%);
     background-color: rgba(255, 255, 255, 1);
     border-radius: 50%;
@@ -134,7 +134,7 @@
   
 .avbot .avbot-eye:after {
     left: 50%;
-    position: absolute;
+    position: relative;
     transform: translateX(-50%);
     background-color: rgba(0, 128, 0, 1);
     border-radius: 50%;
@@ -196,7 +196,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  position: fixed;
+  position: relative;
   display: flex;
   align-items: center;
 
@@ -228,14 +228,14 @@
 }
 
 .loading-indicator:before{
-  animation: loading-indicator-rotation 3s linear infinite;
+  animation: loading-indicator-rotation 15s linear infinite;
   background: rgb(7, 7, 72);
   height: 150px;
   width: 200%;
 }
 
 #loading-indicator__1:before{
-  background: rgb(255, 255, 255);
+  background: #a772a3;
 }
 
 
@@ -258,7 +258,7 @@
   border-radius: 60px;
   top: 45%;
   left: 50%;
-  transform: translate(-50%, 60%);
+  transform: translate(-50%, 200%);
 }
 .xx
 *:not(span) {
@@ -277,7 +277,8 @@
   transform: scale(1);
 }
 .xx
-/* span {
+
+.glow-span {
   transform: scale(.993, .94);
   transition: transform .5s, opacity .25s;
   opacity: 0;
@@ -378,8 +379,8 @@ html::after {
   height: 50px;
   margin: 10px;
   display: inline-block;
-  position: absolute;
-  transform: translate(10%, -700%);
+  position: relative;
+  transform: translate(-750%, -350%);
 }
 
 .arrow::before {
@@ -435,4 +436,56 @@ html::after {
   background: rgba(185, 161, 234, 0.75);
   border-radius: 50px;
 }
-  
+
+
+.hint-button {
+  border-radius: 50px;
+  background-color: #4c2a67;
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  transform: translateX(0px) translateY(450px);
+  position: relative;
+}
+
+.hint-button:hover {
+  background-color: #fff;
+  color: #29103e;
+}
+
+.botAnswer {
+  position: relative;
+  font-size: 23px;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, 400%);
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+
+}
+
+.xanswer {
+  position: relative;
+  font-size: 23px;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, 600%);
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+input{
+	width: 100%;
+	height: 20px;
+	background: #e0dede;
+	justify-content: center;
+	display: flex;
+	margin: 20px auto;
+	padding: 10px;
+	border: none;
+	outline: none;
+	border-radius: 3px;
+}

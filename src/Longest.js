@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import "./Longest.css";
 import { Navigate } from "react-router-dom";
 import axios from 'axios';
-import Timer from "./Timer"
-
 
 function Longest() {
   const [goBack, setGoBack] = React.useState(false);
-  const [currentQuestion, setCurrentQuestion] = useState('');
+  const [currentQuestion, setCurrentQuestion] = useState(() => {
+    const storedQuestion = localStorage.getItem('currentQuestion');
+    return storedQuestion !== null ? storedQuestion : '';
+  });  
   const [points, setPoints] = useState(0);
   const [botAnswer, setBotAnswer] = useState(''); // [botAnswer, setBotAnswer
   const [hint, setHint] = useState('');
@@ -15,15 +16,36 @@ function Longest() {
   const [helloVisible, setHelloVisible] = useState(false);
   const [userInput, setUserInput] = useState('');
   const [hintVisible, setHintVisible] = useState(false);
+  const [remainingTime, setRemainingTime] = useState(10);
+
   
+  const [round, setRound] = useState(() => {
+    const storedRound = localStorage.getItem('round');
+    return storedRound !== null ? parseInt(storedRound) : 1;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('round', round);
+  }, [round]);
+
+
+  function handleTimeOver() {
+    setRound(round + 1); // increase the round
+    setRemainingTime(10); // reset the timer
+    setCurrentQuestion(''); // clear the current question
+  }
+
+
   useEffect(() => { // get a new question
+    if (currentQuestion === '') {
       axios.get('http://localhost:8080/api/getq')
         .then(response => {
           setCurrentQuestion(response.data);
+          localStorage.setItem('currentQuestion', response.data);
         })
         .catch(error => console.error(error));
-
-  }, []);
+    }
+  }, [round]);
 
   useEffect(() => { // if the user gets the answer correct, the bot will respond
     if (points > 0) {
@@ -44,6 +66,7 @@ function Longest() {
     }
   }, [points]);
 
+
   useEffect(() => { // retrieve a hint
     axios.get('http://localhost:8080/api/hint', {
       params: {
@@ -58,6 +81,8 @@ function Longest() {
         .catch(error => console.error(error));
   }, [currentQuestion]);
 
+
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Question:', currentQuestion);
@@ -97,7 +122,7 @@ function Longest() {
   if (goBack) {
     return <Navigate to="/gamepage" />;
   }
-  
+
 
   return (
 
@@ -108,12 +133,17 @@ function Longest() {
     <div class="av">
       <div class="av-eye"></div>
     </div>
-    <div className='timer-container'>
-      <Timer></Timer>
+    <div className="timer-container">
+    <Time key={remainingTime} initialTime={10} onTimeOver={handleTimeOver} />
     </div>
     </div>
     <div className="rectangle-left">
       <h1 class="player-name">Username</h1>
+      <button className="arrow circle left" onClick={handleGoBackClick}></button>
+
+      <button onClick={() => {setHintVisible(true)}} className="hint-button" style={{ display: 'block', marginBottom : '10px', fontFamily: 'ButtonFont'}}>  
+      {hint}
+    </button>
     </div>
     <div className="rectangle-right">
       <h1 class="bot-name">Bot</h1>
@@ -123,33 +153,27 @@ function Longest() {
       <div class="avbot-eye"></div>
     </div>
     </div>
-    <div className="question-position">{currentQuestion}</div>
-    
-    <p>
-      <span className="xx">
-        <input type="text" placeholder="Enter" onKeyDown={handleKeyDown} onChange={handleChange}/>
-        <span></span>
-        </span>
-    </p>
-
+    <div className="question-position">{currentQuestion} 
+    {/* // displays current Q */}
+    <div>
     {helloVisible &&
-        <div className="bottom" style={{color: "purple", fontFamily: "aom" }}>
+        <div className="xanswer">
           {points === 0 ? "SORRY! That is not in our database." : "CORRECT! " + points + " Points awarded."}
         </div>
-    }
-        
+    }  
     {botAnswer && 
         <div className="botAnswer" style={{color: "white", fontFamily: "aom" }}>
           {"@BOT123 Chose: " + botAnswer}
         </div>
     }
-
-    <div>
-        <button onClick={() => {setHintVisible(true)}} style={{fontFamily: 'aom', fontSize: '40px', color: 'white', backgroundColor: 'purple', borderRadius: '10px', padding: '10px', margin: '45px'}}>
-          {hint}
-        </button>
+     </div>
     </div>
-
+    <p>
+      <span className="xx">
+        <input type="text" placeholder="Enter" onKeyDown={handleKeyDown} onChange={handleChange}/>
+        <span class="my-span"></span>
+        </span>
+    </p>
     <div class="scene" style={{ zIndex: "-1" }}>
       <div class="space" style={{ zIndex: "-1" }} >
         <span></span>
@@ -157,9 +181,53 @@ function Longest() {
         <span></span>
         </div>
         </div> 
-    <button className="arrow circle left" onClick={handleGoBackClick}></button>
-    {/* <span className="arrow circle right"></span> */}
+    <div>{round}</div>
   </div>
+  );
+}
+
+function Time(props) {
+  const { initialTime, onTimeOver } = props;
+  const [timeLeft, setTimeLeft] = useState(
+    localStorage.getItem("timeLeft") || initialTime
+  );
+  const [timerId, setTimerId] = useState(null);
+
+  const startTimer = () => {
+    const newTimerId = setTimeout(() => {
+      setTimeLeft(timeLeft - 1);
+      localStorage.setItem("timeLeft", timeLeft - 1);
+    }, 1000);
+    setTimerId(newTimerId);
+  };
+
+  const stopTimer = () => {
+    clearTimeout(timerId);
+  };
+
+  const restartTimer = () => {
+    setTimeLeft(initialTime);
+    localStorage.removeItem("timeLeft");
+  };
+
+  useEffect(() => {
+    if (timeLeft === 0) {
+      onTimeOver();
+      restartTimer();
+      return;
+    }
+
+    startTimer();
+
+    return () => stopTimer();
+  }, [timeLeft, onTimeOver, initialTime]);
+
+  return (
+    <div>
+      <div>{timeLeft}</div>
+      <button onClick={stopTimer}>Stop</button>
+      <button onClick={restartTimer}>Restart</button>
+    </div>
   );
 }
 

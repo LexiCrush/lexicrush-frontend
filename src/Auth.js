@@ -18,9 +18,9 @@ function Auth() {
           <label htmlFor="chk" aria-hidden="true">
             Sign up
           </label>
-          <input type="text" name="txt" placeholder="User name" required="" />
-          <input type="email" name="email" placeholder="Email" required="" />
-          <input type="password" name="pswd" placeholder="Password" required="" />
+          <input type="text" name="txt" placeholder="User name" required="" class="my-input"/>
+          <input type="email" name="email" placeholder="Email" required="" class="my-input"/>
+          <input type="password" name="pswd" placeholder="Password" required="" class="my-input"/>
           <button className='sign-button'>Sign up</button>
         </form>
       </div>
@@ -30,8 +30,8 @@ function Auth() {
           <label htmlFor="chk" aria-hidden="true">
             Login
           </label>
-          <input type="email" name="email" placeholder="Email" required="" />
-          <input type="password" name="pswd" placeholder="Password" required="" />
+          <input type="email" name="email" placeholder="Email" required="" class="my-input"/>
+          <input type="password" name="pswd" placeholder="Password" required="" class="my-input"/>
           <button className='sign-button' onClick={() => {setGoToGame(true)}}>Login</button>
         </form>
       </div>
