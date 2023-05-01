@@ -228,14 +228,14 @@
 }
 
 .loading-indicator:before{
-  animation: loading-indicator-rotation 3s linear infinite;
+  animation: loading-indicator-rotation 15s linear infinite;
   background: rgb(7, 7, 72);
   height: 150px;
   width: 200%;
 }
 
 #loading-indicator__1:before{
-  background: rgb(255, 255, 255);
+  background: #a772a3;
 }
 
 

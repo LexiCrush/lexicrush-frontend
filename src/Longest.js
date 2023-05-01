@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import "./Longest.css";
 import { Navigate } from "react-router-dom";
 import axios from 'axios';
-import Timer from "./Timer"
-
 
 function Longest() {
   const [goBack, setGoBack] = React.useState(false);
-  const [currentQuestion, setCurrentQuestion] = useState('');
+  const [currentQuestion, setCurrentQuestion] = useState(() => {
+    const storedQuestion = localStorage.getItem('currentQuestion');
+    return storedQuestion !== null ? storedQuestion : '';
+  });  
   const [points, setPoints] = useState(0);
   const [botAnswer, setBotAnswer] = useState(''); // [botAnswer, setBotAnswer
   const [hint, setHint] = useState('');
@@ -15,15 +16,36 @@ function Longest() {
   const [helloVisible, setHelloVisible] = useState(false);
   const [userInput, setUserInput] = useState('');
   const [hintVisible, setHintVisible] = useState(false);
+  const [remainingTime, setRemainingTime] = useState(10);
+
   
+  const [round, setRound] = useState(() => {
+    const storedRound = localStorage.getItem('round');
+    return storedRound !== null ? parseInt(storedRound) : 1;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('round', round);
+  }, [round]);
+
+
+  function handleTimeOver() {
+    setRound(round + 1); // increase the round
+    setRemainingTime(10); // reset the timer
+    setCurrentQuestion(''); // clear the current question
+  }
+
+
   useEffect(() => { // get a new question
+    if (currentQuestion === '') {
       axios.get('http://localhost:8080/api/getq')
         .then(response => {
           setCurrentQuestion(response.data);
+          localStorage.setItem('currentQuestion', response.data);
         })
         .catch(error => console.error(error));
-
-  }, []);
+    }
+  }, [round]);
 
   useEffect(() => { // if the user gets the answer correct, the bot will respond
     if (points > 0) {
@@ -111,8 +133,8 @@ function Longest() {
     <div class="av">
       <div class="av-eye"></div>
     </div>
-    <div className='timer-container'>
-      <Timer> </Timer>
+    <div className="timer-container">
+    <Time key={remainingTime} initialTime={10} onTimeOver={handleTimeOver} />
     </div>
     </div>
     <div className="rectangle-left">
@@ -131,7 +153,8 @@ function Longest() {
       <div class="avbot-eye"></div>
     </div>
     </div>
-    <div className="question-position">{currentQuestion}
+    <div className="question-position">{currentQuestion} 
+    {/* // displays current Q */}
     <div>
     {helloVisible &&
         <div className="xanswer">
@@ -148,7 +171,7 @@ function Longest() {
     <p>
       <span className="xx">
         <input type="text" placeholder="Enter" onKeyDown={handleKeyDown} onChange={handleChange}/>
-        <span class="glow-span"></span>
+        <span class="my-span"></span>
         </span>
     </p>
     <div class="scene" style={{ zIndex: "-1" }}>
@@ -158,8 +181,53 @@ function Longest() {
         <span></span>
         </div>
         </div> 
-  
+    <div>{round}</div>
   </div>
+  );
+}
+
+function Time(props) {
+  const { initialTime, onTimeOver } = props;
+  const [timeLeft, setTimeLeft] = useState(
+    localStorage.getItem("timeLeft") || initialTime
+  );
+  const [timerId, setTimerId] = useState(null);
+
+  const startTimer = () => {
+    const newTimerId = setTimeout(() => {
+      setTimeLeft(timeLeft - 1);
+      localStorage.setItem("timeLeft", timeLeft - 1);
+    }, 1000);
+    setTimerId(newTimerId);
+  };
+
+  const stopTimer = () => {
+    clearTimeout(timerId);
+  };
+
+  const restartTimer = () => {
+    setTimeLeft(initialTime);
+    localStorage.removeItem("timeLeft");
+  };
+
+  useEffect(() => {
+    if (timeLeft === 0) {
+      onTimeOver();
+      restartTimer();
+      return;
+    }
+
+    startTimer();
+
+    return () => stopTimer();
+  }, [timeLeft, onTimeOver, initialTime]);
+
+  return (
+    <div>
+      <div>{timeLeft}</div>
+      <button onClick={stopTimer}>Stop</button>
+      <button onClick={restartTimer}>Restart</button>
+    </div>
   );
 }
 

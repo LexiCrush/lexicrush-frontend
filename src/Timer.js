@@ -2,10 +2,23 @@ import React, { useState, useEffect } from 'react';
 import './Timer.css';
 import axios from 'axios';
 
+const TIMER_DURATION = 10;
+const TIMER_STORAGE_KEY = 'timerValue';
 
 export default function Timer() {
-  const [seconds, setSeconds] = useState(10);
+  const [seconds, setSeconds] = useState(
+    Number(window.localStorage.getItem(TIMER_STORAGE_KEY)) || TIMER_DURATION
+  );
   const [isActive, setIsActive] = useState(true);
+
+  function onTimerEnd() {
+    // Your code to be executed when the timer ends
+  }
+
+
+  useEffect(() => {
+    window.localStorage.setItem(TIMER_STORAGE_KEY, seconds.toString());
+  }, [seconds]);
 
   useEffect(() => {
     let intervalId;
@@ -19,11 +32,10 @@ export default function Timer() {
 
   useEffect(() => {
     if (seconds === 0) {
-      setSeconds(10)
-      // setIsActive(false);
-      // window.location.reload();
+      // setSeconds(TIMER_DURATION);
+      onTimerEnd();
     }
-  }, [seconds]);
+  }, [seconds, onTimerEnd]); 
 
   const minutes = Math.floor(seconds / 60);
   const paddedSeconds = (seconds % 60).toString().padStart(2, '0');
@@ -33,7 +45,6 @@ export default function Timer() {
   };
 
   const timerDisplayClass = seconds <= 5 ? 'timer-display red' : 'timer-display';
-
 
   return (
     <div className="bomb-timer">
