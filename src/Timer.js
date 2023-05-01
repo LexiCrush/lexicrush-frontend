@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './Timer.css';
+import axios from 'axios';
+
 
 export default function Timer() {
-  const [seconds, setSeconds] = useState(60);
+  const [seconds, setSeconds] = useState(10);
   const [isActive, setIsActive] = useState(true);
 
   useEffect(() => {
@@ -17,8 +19,9 @@ export default function Timer() {
 
   useEffect(() => {
     if (seconds === 0) {
-      setIsActive(false);
-      window.location.reload();
+      setSeconds(10)
+      // setIsActive(false);
+      // window.location.reload();
     }
   }, [seconds]);
 

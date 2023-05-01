@@ -44,6 +44,7 @@ function Longest() {
     }
   }, [points]);
 
+
   useEffect(() => { // retrieve a hint
     axios.get('http://localhost:8080/api/hint', {
       params: {
@@ -58,6 +59,8 @@ function Longest() {
         .catch(error => console.error(error));
   }, [currentQuestion]);
 
+
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Question:', currentQuestion);
@@ -97,7 +100,7 @@ function Longest() {
   if (goBack) {
     return <Navigate to="/gamepage" />;
   }
-  
+
 
   return (
 
@@ -109,11 +112,16 @@ function Longest() {
       <div class="av-eye"></div>
     </div>
     <div className='timer-container'>
-      <Timer></Timer>
+      <Timer> </Timer>
     </div>
     </div>
     <div className="rectangle-left">
       <h1 class="player-name">Username</h1>
+      <button className="arrow circle left" onClick={handleGoBackClick}></button>
+
+      <button onClick={() => {setHintVisible(true)}} className="hint-button" style={{ display: 'block', marginBottom : '10px', fontFamily: 'ButtonFont'}}>  
+      {hint}
+    </button>
     </div>
     <div className="rectangle-right">
       <h1 class="bot-name">Bot</h1>
@@ -123,33 +131,26 @@ function Longest() {
       <div class="avbot-eye"></div>
     </div>
     </div>
-    <div className="question-position">{currentQuestion}</div>
-    
-    <p>
-      <span className="xx">
-        <input type="text" placeholder="Enter" onKeyDown={handleKeyDown} onChange={handleChange}/>
-        <span></span>
-        </span>
-    </p>
-
+    <div className="question-position">{currentQuestion}
+    <div>
     {helloVisible &&
-        <div className="bottom" style={{color: "purple", fontFamily: "aom" }}>
+        <div className="xanswer">
           {points === 0 ? "SORRY! That is not in our database." : "CORRECT! " + points + " Points awarded."}
         </div>
-    }
-        
+    }  
     {botAnswer && 
         <div className="botAnswer" style={{color: "white", fontFamily: "aom" }}>
           {"@BOT123 Chose: " + botAnswer}
         </div>
     }
-
-    <div>
-        <button onClick={() => {setHintVisible(true)}} style={{fontFamily: 'aom', fontSize: '40px', color: 'white', backgroundColor: 'purple', borderRadius: '10px', padding: '10px', margin: '45px'}}>
-          {hint}
-        </button>
+     </div>
     </div>
-
+    <p>
+      <span className="xx">
+        <input type="text" placeholder="Enter" onKeyDown={handleKeyDown} onChange={handleChange}/>
+        <span class="glow-span"></span>
+        </span>
+    </p>
     <div class="scene" style={{ zIndex: "-1" }}>
       <div class="space" style={{ zIndex: "-1" }} >
         <span></span>
@@ -157,8 +158,7 @@ function Longest() {
         <span></span>
         </div>
         </div> 
-    <button className="arrow circle left" onClick={handleGoBackClick}></button>
-    {/* <span className="arrow circle right"></span> */}
+  
   </div>
   );
 }
