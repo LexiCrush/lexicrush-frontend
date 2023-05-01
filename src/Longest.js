@@ -17,6 +17,7 @@ function Longest() {
   const [userInput, setUserInput] = useState('');
   const [hintVisible, setHintVisible] = useState(false);
   const [remainingTime, setRemainingTime] = useState(10);
+  const [restart, setRestart] = useState(false);
 
   
   const [round, setRound] = useState(() => {
@@ -30,10 +31,22 @@ function Longest() {
 
 
   function handleTimeOver() {
-    setRound(round + 1); // increase the round
-    setRemainingTime(10); // reset the timer
-    setCurrentQuestion(''); // clear the current question
+    if (round === 5) {
+      setRound(1)
+      setHelloVisible(false); // hide the answer
+      setHintVisible(false); // hide the hint
+      setCurrentQuestion(''); // clear the current question
+      setPoints(0); // reset the points
+      setRemainingTime(10); // reset the timer
+    } else {
+      setRound(round + 1); // increase the round
+      setRemainingTime(10); // reset the timer
+      setCurrentQuestion(''); // clear the current question
+      setPoints(0); // reset the points
+    }
   }
+
+  
 
 
   useEffect(() => { // get a new question
@@ -182,6 +195,7 @@ function Longest() {
         </div>
         </div> 
     <div>{round}</div>
+    {/* <button>Restart Game</button> */}
   </div>
   );
 }
