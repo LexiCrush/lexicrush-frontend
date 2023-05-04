@@ -4,10 +4,18 @@ import { Navigate } from "react-router-dom";
 import axios from 'axios';
 
 function Auth() {
-
+  // if there is a token in local storage, redirect to gamepage
+  const accessToken = localStorage.getItem('token');
+  const [goBack, setGoBack] = React.useState(false);
   const [goToGame, setGoToGame] = React.useState(false);
-  if (goToGame) {
-    return <Navigate to="/gamepage" />;
+
+  if (accessToken) {
+    return <Navigate to="/gamepage" />; // redirect to gamepage if already logged in
+  }
+
+
+  if (goBack) {
+    return <Navigate to="/profile" />;
   }
 
   const handleRegister = (evt) => {
