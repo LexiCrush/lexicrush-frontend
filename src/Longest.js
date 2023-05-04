@@ -195,7 +195,7 @@ function Longest() {
         <div>
           {helloVisible &&
             <div className="xanswer">
-              {points === 0 ? "Sorry, " + currentAnswer + " is NOT a valid answer!" : "CORRECT! " + currentAnswer + " is a valid answer and it is " + points + " letters long! and the result is"}
+              {points === 0 ? "Sorry, " + currentAnswer + " is NOT a valid answer!" : "Correct " + currentAnswer + " is worth " + points + " points"}
             </div>
           }
           {botAnswer &&

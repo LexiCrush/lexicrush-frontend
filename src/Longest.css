@@ -468,13 +468,14 @@ html::after {
 
 .xanswer {
   position: relative;
-  font-size: 23px;
-  top: 15%;
+  font-size: 20px;
+  top: 25%;
   left: 50%;
   transform: translate(-50%, 600%);
   font-size: 24px;
   font-weight: bold;
   color: #ffffff;
+  white-space: nowrap;
 }
 
 input{
