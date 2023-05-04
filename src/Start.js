@@ -9,8 +9,8 @@ function Start() {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setShowButton(true);
-    }, 6000);
+      setShowButton(true);      
+    }, 2500);
 
     return () => clearTimeout(timeoutId);
   }, []);
@@ -19,7 +19,7 @@ function Start() {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setShowTitle(true);
-    }, 5000);
+    }, 1300);
 
     return () => clearTimeout(timeoutId);
   }, []);
@@ -47,14 +47,14 @@ function Start() {
       </div>
     </div>
     {showTitle && 
-    <h1 className="glitch"  style={{fontFamily: 'ButtonFont', marginBottom: '450px', color: "white", position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -40%)'}}>
+    <h1 className="glitch"  style={{fontFamily: 'ButtonFont', color: "white", position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -40%)'}}>
         <span aria-hidden="true">Lexicrush</span>
         Lexicrush
         <span aria-hidden="true">Lexicrush</span>
         </h1>
     }
     {showButton && 
-      <button className="play-button" onClick={handleButtonClick} style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
+      <button className="play-button" onClick={handleButtonClick} style={{fontFamily: 'ButtonFont' }}>
         Play
       </button>
     }

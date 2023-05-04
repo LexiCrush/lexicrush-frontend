@@ -41,7 +41,7 @@ function App() {
             <Route path= "/play" element={<Play />} />
             <Route path= "/longest" element={<Longest />} />
             <Route path = "/test" element={<Test />} />
-            <Route path = "/profile" element={<Profile />} />
+            <Route path = "/profile" element={<Profile />} /> 
           </Routes>
         </Router>
       </header>

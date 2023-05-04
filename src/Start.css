@@ -26,7 +26,7 @@ body {
   left: 50%;
   top: 55%;
   transform: translate(-50%, 0%);
-
+  
 }
 
 .play-button:hover {
@@ -39,7 +39,7 @@ body {
   }
 
 .glitch {
-    font-size: 1.7rem;
+    font-size: 3.7rem;
     font-weight: 700;
     text-transform: uppercase;
     position: relative;
@@ -57,19 +57,19 @@ body {
   }
   
   .glitch span:first-child {
-    animation: glitch 650ms infinite;
+    animation: glitch 1050ms infinite;
     clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
     transform: translate(-0.2px, -0.125px);
     /* color: green; */
-    opacity: 0.8;
+    opacity: 0.65;
   }
   
   .glitch span:last-child {
-    animation: glitch 375ms infinite;
+    animation: glitch 775ms infinite;
     clip-path: polygon(0 80%, 100% 20%, 100% 100%, 0 100%);
     transform: translate(0.0125em, 0.025em);
     /* color: red; */
-    opacity: 0.8;
+    opacity: 0.65;
   }
   
   @keyframes glitch {
@@ -288,7 +288,7 @@ body {
       padding: 10px 30px;
       cursor: pointer;
       border: none;
-      transform: translateX(55px) translateY(60px);
+      /* transform: translateX(55px) translateY(60px); */
   }
   .sign-up-button {
     border-radius:40px;
@@ -324,6 +324,6 @@ body {
     }
     
     .bg .light {
-      animation: light-anima 50s infinite linear;
+      animation: light-anima 10s infinite linear;
     }
     

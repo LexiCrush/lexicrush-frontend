@@ -1,4 +1,3 @@
-
 import React from 'react';
 import './Auth.css';
 import { Navigate } from "react-router-dom";
@@ -16,6 +15,22 @@ function Auth() {
     const username = evt.target.username.value;
     const password = evt.target.password.value;
 
+    // Check if username is at least 5 chars long
+    if (username.length < 5) {
+        alert('Username must be at least 5 characters long');
+        return;
+    }
+
+    if (username.length > 12) {
+      alert('Username can not be longer than 12 characters');
+      return;
+  }
+
+    if (password.length < 5) {
+      alert('Password must be at least 5 characters long');
+      return;
+  }
+
     axios.post('http://localhost:8080/auth/register', {
       username: username,
       password: password,
@@ -28,6 +43,7 @@ function Auth() {
         const username = response.data;
         if(username){
             alert(`Success! ${username} has been registered with Lexicrush`);
+            document.getElementById("chk").checked = true;
         } else {
             alert(`An account with that username already exists`);
         }

@@ -51,7 +51,7 @@ function Profile() {
   </div>
   <div class="general">
     <h1>{userhandle}</h1>
-    <span class="more">Hover for more info</span>
+    <span class="more">Hover...</span>
   </div>
 </div>
 <div class="a">

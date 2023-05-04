@@ -15,7 +15,7 @@ function PlayGame() {
 
 
   useEffect(() => { // get a new question
-      axios.get('http://localhost:8080/api/getq')
+      axios.get('http://10.0.0.16:8080/api/getq')
         .then(response => {
           setCurrentQuestion(response.data);
         })
@@ -25,7 +25,7 @@ function PlayGame() {
 
   useEffect(() => { // if the user gets the answer correct, the bot will respond
     if (points > 0) {
-      axios.get('http://localhost:8080/api/bot', {
+      axios.get('http://10.0.0.16:8080/api/bot', {
       params: {
         question: currentQuestion
       }
@@ -43,7 +43,7 @@ function PlayGame() {
   }, [points]);
 
   useEffect(() => { // retrieve a hint
-    axios.get('http://localhost:8080/api/hint', {
+    axios.get('http://10.0.0.16:8080/api/hint', {
       params: {
         question: currentQuestion
       }
@@ -62,7 +62,7 @@ function PlayGame() {
     console.log('Question:', currentQuestion);
     console.log('User Submitted:', currentAnswer);
 
-    axios.post('http://localhost:8080/api/checkans', {
+    axios.post('http://10.0.0.16:8080/api/checkans', {
       question: currentQuestion,
       answer: currentAnswer
       }, {
