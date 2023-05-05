@@ -21,6 +21,7 @@ function Longest() {
   const [remainingTime, setRemainingTime] = useState(10);
   const [restart, setRestart] = useState(false);
   const [goExit, setExit] = React.useState(false);
+  const [currentScore, setCurrentScore] = React.useState(false);
 
 
   const token = localStorage.getItem('token');
@@ -150,6 +151,20 @@ function Longest() {
   }
 
 
+  const getCurrentScore = () => {
+    axios.get('http://localhost:8080/api/getCurrentScore',{
+      headers: {
+        'Access-Token': accessToken,
+      }
+    })
+      .then(response => { console.log(response); setCurrentScore(response.data); })
+      .catch(error => console.error(error));
+
+    console.log('Current Score:', currentScore);
+  }
+
+  
+
   const handleChange = (e) => {
     setAnswer(e.target.value); // this is the text in the input field
   }
@@ -172,6 +187,7 @@ function Longest() {
 
   if (botAnswer) {
     handleScoring();
+    getCurrentScore();
   }
 
   function handlegoExit() {
@@ -217,7 +233,7 @@ function Longest() {
         <div>
           {helloVisible &&
             <div className="xanswer">
-              {points === 0 ? "Sorry, " + currentAnswer + " is NOT a valid answer!" : roundResult}
+              {points === 0 ? "Sorry, " + currentAnswer + " is NOT a valid answer!" : roundResult + "current score is: " + currentScore}
             </div>
           }
           {botAnswer &&
@@ -226,6 +242,7 @@ function Longest() {
             </div>
 
           }
+    
         </div>
       </div>
       <p>
