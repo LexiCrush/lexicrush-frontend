@@ -170,7 +170,7 @@ function Longest() {
         <div class="av">
           <div class="av-eye"></div>
         </div>
-        <div className="timer-container">
+        <div className="timer-container" style={{ position: 'relative', top: -20, right: -340}}>
           <Time key={remainingTime} initialTime={10} onTimeOver={handleTimeOver} />
         </div>
       </div>
