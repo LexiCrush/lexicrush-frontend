@@ -38,7 +38,7 @@ function App() {
             <Route path= "/" element={<Start />} />
             <Route path= "/login" element={<Auth />} />
             <Route path= "/gamepage" element={<Gamepage />} />
-            <Route path= "/play" element={<Play />} />
+            {/* <Route path= "/play" element={<Play />} /> */}
             <Route path= "/longest" element={<Longest />} />
             <Route path = "/test" element={<Test />} />
             <Route path = "/profile" element={<Profile />} /> 

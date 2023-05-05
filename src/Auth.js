@@ -10,13 +10,12 @@ function Auth() {
   const [goToGame, setGoToGame] = React.useState(false);
 
   if (accessToken) {
-    return <Navigate to="/gamepage" />; // redirect to gamepage if already logged in
+    return <Navigate to="/profile" />; // redirect to gamepage if already logged in
   }
 
-
-  if (goBack) {
-    return <Navigate to="/profile" />;
-  }
+  // if (goBack) {
+  //   return <Navigate to="/profile" />;
+  // }
 
   const handleRegister = (evt) => {
     evt.preventDefault();
@@ -54,6 +53,7 @@ function Auth() {
             document.getElementById("chk").checked = true;
         } else {
             alert(`An account with that username already exists`);
+            document.getElementById("chk").checked = true;
         }
       })
       .catch((error) => {

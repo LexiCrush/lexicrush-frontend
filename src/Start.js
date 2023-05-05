@@ -55,7 +55,7 @@ function Start() {
     }
     {showButton && 
       <button className="play-button" onClick={handleButtonClick} style={{fontFamily: 'ButtonFont' }}>
-        Play
+        Get Started
       </button>
     }
         <div class="scene" style={{ zIndex: "-1" }}>
