@@ -38,21 +38,25 @@ function Longest() {
 
 
   function handleTimeOver() {
-
     if (round === 5) {
-      setRound(1)
+      setRound(1);
       setHelloVisible(false); // hide the answer
       setHintVisible(false); // hide the hint
       setCurrentQuestion(''); // clear the current question
       setPoints(0); // reset the points
       setRemainingTime(10); // reset the timer
+      setBotAnswer(''); // clear the bot answer
+      setRoundResult(''); // clear the round result
     } else {
       setRound(round + 1); // increase the round
       setRemainingTime(10); // reset the timer
       setCurrentQuestion(''); // clear the current question
-      setPoints(0); // reset the points
+      setBotAnswer(''); // clear the bot answer
+      setRoundResult(''); // clear the round result
+      setHelloVisible('')
     }
   }
+  
 
   useEffect(() => { // get a new question
     if (currentQuestion === '') {
