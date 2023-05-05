@@ -22,16 +22,14 @@ function Longest() {
   const [remainingTime, setRemainingTime] = useState(10);
   const [restart, setRestart] = useState(false);
   const [goExit, setExit] = React.useState(false);
-  const [currentScore, setCurrentScore] = React.useState(false);
+  const [currentScore, setCurrentScore] = React.useState(0);
   const [endGame, setEndGame] = React.useState(false);
   const [text, setText] = useState("");
 
-
   const token = localStorage.getItem('token');
-  const username = token.split('|')[0];
+  const username = accessToken.split('|')[0];
   const userhandle = "@" + username;
   // const URL = 'http://lexicrush.zyns.com';
-
 
   const [round, setRound] = useState(() => {
     const storedRound = localStorage.getItem('round');
@@ -77,26 +75,6 @@ function Longest() {
     }
   }, [round]);
 
-  useEffect(() => { // if the user gets the answer correct, the bot will respond
-    if (points > 0) {
-      axios.get('http://localhost:8080/api/bot', {
-        params: {
-          question: currentQuestion
-        }
-      }, {
-      })
-        .then(response => {
-          setBotAnswer(response.data);
-          console.log('Bot Answer:', botAnswer);
-          // setTimeout(() => {
-          //   window.location.reload();
-          // }, 2000);
-        })
-        .catch(error => console.error(error));
-    }
-  }, [points]);
-
-
   useEffect(() => { // retrieve a hint
     axios.get('http://localhost:8080/api/hint', {
       params: {
@@ -111,32 +89,75 @@ function Longest() {
       .catch(error => console.error(error));
   }, [currentQuestion]);
 
+  const handleChange = (e) => {
+    setAnswer(e.target.value); // this is the text in the input field
+    setText(e.target.value);
 
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Question:', currentQuestion);
-    console.log('User Submitted:', currentAnswer);
+  // useEffect(() => { // if the user gets the answer correct, the bot will respond
+  //   if (points > 0) {
+  //     axios.get('http://localhost:8080/api/bot', {
+  //       params: {
+  //         question: currentQuestion
+  //       }
+  //     }, {
+  //     })
+  //       .then(response => {
+  //         setBotAnswer(response.data);
+  //         console.log('Bot Answer:', botAnswer);
+  //         // setTimeout(() => {
+  //         //   window.location.reload();
+  //         // }, 2000);
+  //       })
+  //       .catch(error => console.error(error));
+  //   }
+  // }, [points]);
 
-    axios.post('http://localhost:8080/api/checkans', {
-      question: currentQuestion,
-      answer: currentAnswer
-    }, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+  const getBotAns = () => { // get the bot answer
+    axios.get('http://localhost:8080/api/bot', {
+      params: {
+        question: currentQuestion
       }
+    }, {
     })
-      .then(response => { console.log(response); setPoints(response.data); })
+      .then(response => {
+        setBotAnswer(response.data);
+        console.log('Bot Answer:', botAnswer);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 2000);
+      })
       .catch(error => console.error(error));
   }
 
-  const handleScoring = () => {
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log('Question:', currentQuestion);
+  //   console.log('User Submitted:', currentAnswer);
+
+  //   axios.post('http://localhost:8080/api/checkans', {
+  //     question: currentQuestion,
+  //     answer: currentAnswer
+  //   }, {
+  //     headers: {
+  //       'Content-Type': 'application/x-www-form-urlencoded'
+  //     }
+  //   })
+  //     .then(response => { console.log(response); setPoints(response.data); })
+  //     .catch(error => console.error(error));
+  // }
+
+  const handleScoring = (e) => {
+    e.preventDefault();
     console.log('Player Answer:', currentAnswer);
     console.log('Bots Answer:', botAnswer);
 
     axios.post('http://localhost:8080/api/updateCurrentScore', {
       playerAnswer: currentAnswer,
-      botAnswer: botAnswer
+      botAnswer: botAnswer,
+      question: currentQuestion
     }, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -149,37 +170,54 @@ function Longest() {
     })
       .then(response => { console.log(response); setRoundResult(response.data); })
       .catch(error => console.error(error));
+      // if roundResult is not "Invalid access token"
+      // then get the current score
+      // if (roundResult !== "Invalid access token") {
+      //   getBotAns();
+      // }
+
+    // axios.get('http://localhost:8080/api/getCurrentScore', {
+    //   headers: {
+    //     'Access-Token': accessToken
+    //   }
+    // })
+    //   .then(response => { console.log(response); setCurrentScore(response.data); })
+    //   .catch(error => console.error(error));
+
+    // console.log('Current Score:', currentScore);
+  }
 
 
-    axios.get('http://localhost:8080/api/getCurrentScore', {
+  const getCurrentScore = () => {
+    axios.get('http://localhost:8080/api/getCurrentScore',{
       headers: {
-        'Access-Token': accessToken
+        'Access-Token': accessToken,
       }
     })
       .then(response => { console.log(response); setCurrentScore(response.data); })
       .catch(error => console.error(error));
 
     console.log('Current Score:', currentScore);
-
   }
 
 
-  // const getCurrentScore = () => {
-  //   axios.get('http://localhost:8080/api/getCurrentScore',{
-  //     headers: {
-  //       'Access-Token': accessToken,
-  //     }
-  //   })
-  //     .then(response => { console.log(response); setCurrentScore(response.data); })
-  //     .catch(error => console.error(error));
-
-  //   console.log('Current Score:', currentScore);
-  // }
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) { // Enter key
+      e.preventDefault(); // prevent the default action (submitting the form) when pressing enter key in input field
+      setUserInput(currentAnswer);
+      getBotAns();
+      handleScoring(e);
+      getCurrentScore();
+      setHelloVisible(true);
+      console.log('Submitted:', currentAnswer);
+      setText("")
+    }
+  }
 
   const handleEndGame = () => {
     console.log('End Game');
     console.log('accessToken:', accessToken);
-    
+
     axios.post('http://localhost:8080/api/endGame', {
     }, {
       headers: {
@@ -189,27 +227,6 @@ function Longest() {
       .then(response => { console.log(response); setEndGame(response.data); })
       .catch(error => console.error(error));
   }
-
-
-  const handleChange = (e) => {
-    setAnswer(e.target.value); // this is the text in the input field
-    setText(e.target.value);
-    
-  }
-
-  const handleKeyDown = (e) => {
-    if (e.keyCode === 13) { // Enter key
-      setUserInput(currentAnswer);
-      handleSubmit(e);
-      console.log('Submitted:', currentAnswer);
-      // console.log('Points received by API:', points);
-      setHelloVisible(true);
-      setBotAnswer(botAnswer); // add this line
-      handleScoring();
-      setText("")
-    }
-  }
-
 
   if (goBack) {
     handleEndGame();
@@ -229,6 +246,19 @@ function Longest() {
     handleEndGame();
     return <Navigate to="/profile" />;
   }
+
+  // if (accessToken) {
+
+  //   const tokenTime = accessToken.split('|')[1];
+  //   const currentTime = new Date().getTime();
+
+  //   if (currentTime - tokenTime > 1000 * 60 * 60 * 2) { // if token is older than 2 hours
+  //     localStorage.removeItem('token'); // remove token from local storage
+  //     alert('Your session has expired. Please log in again.'); // alert user
+  //     return <Navigate to="/auth" />; // redirect to login page
+
+  //   } 
+  // }
 
 
   return (
@@ -268,7 +298,7 @@ function Longest() {
         <div>
           {helloVisible &&
             <div className="xanswer">
-              {points === 0 ? "Sorry, " + currentAnswer + " is NOT a valid answer!" : roundResult + "current score is: " + currentScore}
+              {roundResult + "current score is: " + currentScore}
             </div>
           }
           {botAnswer &&
@@ -282,7 +312,7 @@ function Longest() {
       </div>
       <p>
         <span className="xx"> {/* user text input box */}
-          <input type="text" value={text}  placeholder="Enter" onKeyDown={handleKeyDown} onChange={handleChange} />
+          <input type="text" value={text} placeholder="Enter" onKeyDown={handleKeyDown} onChange={handleChange} />
           <span class="my-span"></span>
         </span>
       </p>
