@@ -174,10 +174,10 @@ body {
   height: 60px;
   overflow: hidden;
   width: 50px;
-  position: absolute;
+  position: relative;
   top: 45%;
   left: 50%;
-  transform: translate(-350%, 15%);
+  transform: translate(-350%, -305%);
   z-index: 2;
 }
 
@@ -194,7 +194,7 @@ body {
 
 .a .a-eye:after {
   left: 50%;
-  position: absolute;
+  position: relative;
   transform: translateX(-50%);
   background-color: rgba(0, 128, 0, 1);
   border-radius: 50%;
@@ -214,4 +214,19 @@ body {
   height: 10px;
   bottom: 5px;
   width: 10px;
+}
+
+.profile-play {
+  border-radius: 50px;
+  background-color: #29103e;
+  color: #fff;
+  padding: 10px 30px;
+  cursor: pointer;
+  border: none;
+  transform: translateX(220px) translateY(-70px);
+}
+
+.profile-play:hover {
+  background-color: #fff;
+  color: #29103e;
 }

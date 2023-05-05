@@ -24,6 +24,7 @@ function Longest() {
   const [goExit, setExit] = React.useState(false);
   const [currentScore, setCurrentScore] = React.useState(false);
   const [endGame, setEndGame] = React.useState(false);
+  const [text, setText] = useState("");
 
 
   const token = localStorage.getItem('token');
@@ -192,6 +193,8 @@ function Longest() {
 
   const handleChange = (e) => {
     setAnswer(e.target.value); // this is the text in the input field
+    setText(e.target.value);
+    
   }
 
   const handleKeyDown = (e) => {
@@ -203,6 +206,7 @@ function Longest() {
       setHelloVisible(true);
       setBotAnswer(botAnswer); // add this line
       handleScoring();
+      setText("")
     }
   }
 
@@ -235,8 +239,11 @@ function Longest() {
         <div class="av">
           <div class="av-eye"></div>
         </div>
-        <div className="timer-container" style={{ position: 'relative', top: -20, right: -340 }}>
-          <Time key={remainingTime} initialTime={3} onTimeOver={handleTimeOver} />
+        <div className="timer-container" style={{ position: 'relative', top: 15, right: -340 }}>
+          <Time key={remainingTime} initialTime={8} onTimeOver={handleTimeOver} />
+        </div>
+        <div className='round-container'>
+          {"Round " + round}
         </div>
       </div>
       <div className="rectangle-left">
@@ -275,7 +282,7 @@ function Longest() {
       </div>
       <p>
         <span className="xx"> {/* user text input box */}
-          <input type="text" placeholder="Enter" onKeyDown={handleKeyDown} onChange={handleChange} />
+          <input type="text" value={text}  placeholder="Enter" onKeyDown={handleKeyDown} onChange={handleChange} />
           <span class="my-span"></span>
         </span>
       </p>
@@ -286,7 +293,6 @@ function Longest() {
           <span></span>
         </div>
       </div>
-      <div>{round}</div>
       {/* <button>Restart Game</button> */}
     </div>
   );

@@ -61,15 +61,16 @@ function Profile() {
         </div>
         <div class="general">
           <h1>{userhandle}</h1>
+          <span>How to Play</span>
           <span class="more">Hover...</span>
         </div>
       </div>
       <div class="a">
         <div class="a-eye"></div>
       </div>
-      <button className="rounded" onClick={handlePlayClick} style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
+      <button className="profile-play" onClick={handlePlayClick} style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
         Play
-      </button>
+      </button> 
     </div>
 
 
