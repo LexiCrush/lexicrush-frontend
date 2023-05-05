@@ -12,7 +12,7 @@ function Longest() {
   });
   const [points, setPoints] = useState(0);
   const [roundResult, setRoundResult] = useState('');
-  const [botAnswer, setBotAnswer] = useState(''); 
+  const [botAnswer, setBotAnswer] = useState('');
   const [hint, setHint] = useState('');
   const [currentAnswer, setAnswer] = useState('');
   const [helloVisible, setHelloVisible] = useState(false);
@@ -42,8 +42,8 @@ function Longest() {
 
 
   function handleTimeOver() {
-    if (round === 5) {    
-      setRound(1)  
+    if (round === 5) {
+      setRound(1)
       setHelloVisible(false); // hide the answer
       setHintVisible(false); // hide the hint
       setCurrentQuestion(''); // clear the current question
@@ -61,7 +61,7 @@ function Longest() {
       setHelloVisible('')
     }
   }
-  
+
   useEffect(() => { // get a new question
     if (currentQuestion === '') {
       axios.get('http://localhost:8080/api/getq')
@@ -126,23 +126,28 @@ function Longest() {
       .catch(error => console.error(error));
   }
 
-  // const handleScoring = (e) => {
-  //   e.preventDefault();
-  //   console.log('Player Answer:', currentAnswer);
-  //   console.log('Bots Answer:', botAnswer);
+  const handleScoring = () => {
+    console.log('Player Answer:', currentAnswer);
+    console.log('Bots Answer:', botAnswer);
 
-  //   axios.post('http://localhost:8080/api/updatescore', {
-  //     playerAnswer: currentAnswer,
-  //     botAnswer: botAnswer
-  //   }, {
-  //     headers: {
-  //       'Content-Type': 'application/x-www-form-urlencoded',
-  //       'Access-Token': accessToken
-  //     }
-  //   })
-  //     .then(response => { console.log(response); setRoundResult(response.data); })
-  //     .catch(error => console.error(error));
-  // }
+    axios.post('http://localhost:8080/api/updateCurrentScore', {
+      playerAnswer: currentAnswer,
+      botAnswer: botAnswer
+    }, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Access-Token': accessToken,
+        // 'Access-Control-Allow-Origin': '*', // allow CORS
+        // 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+        // 'Access-Control-Allow-Origin': 'http://localhost:3000',
+        // 'Access-Control-Allow-Credentials': 'true'
+      }
+    })
+      .then(response => { console.log(response); setRoundResult(response.data); })
+      .catch(error => console.error(error));
+
+    console.log('Round Result:', roundResult);
+  }
 
 
   const handleChange = (e) => {
@@ -165,6 +170,10 @@ function Longest() {
     return <Navigate to="/test" />;
   }
 
+  if (botAnswer) {
+    handleScoring();
+  }
+
   function handlegoExit() {
     setExit(true);
   }
@@ -182,7 +191,7 @@ function Longest() {
         <div class="av">
           <div class="av-eye"></div>
         </div>
-        <div className="timer-container" style={{ position: 'relative', top: -20, right: -340}}>
+        <div className="timer-container" style={{ position: 'relative', top: -20, right: -340 }}>
           <Time key={remainingTime} initialTime={10} onTimeOver={handleTimeOver} />
         </div>
       </div>
@@ -191,9 +200,9 @@ function Longest() {
         <button onClick={() => { setHintVisible(true) }} className="hint-button" style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
           {hint}
         </button>
-        <button onClick={() => { handlegoExit(true)}} className="exit-button" style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>  
-        Exit
-       </button>
+        <button onClick={() => { handlegoExit(true) }} className="exit-button" style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
+          Exit
+        </button>
       </div>
       <div className="rectangle-right">
         <h1 class="bot-name">Bot</h1>
@@ -208,7 +217,7 @@ function Longest() {
         <div>
           {helloVisible &&
             <div className="xanswer">
-              {points === 0 ? "Sorry, " + currentAnswer + " is NOT a valid answer!" : "Correct " + currentAnswer + " is worth " + points + " points"}
+              {points === 0 ? "Sorry, " + currentAnswer + " is NOT a valid answer!" : roundResult}
             </div>
           }
           {botAnswer &&
