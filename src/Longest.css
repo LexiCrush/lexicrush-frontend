@@ -478,7 +478,7 @@ html::after {
   white-space: nowrap;
 }
 
-input{
+input {
 	width: 100%;
 	height: 20px;
 	background: #e0dede;
@@ -489,4 +489,20 @@ input{
 	border: none;
 	outline: none;
 	border-radius: 3px;
+}
+
+.exit-button {
+  border-radius: 50px;
+  background-color: #4c2a67;
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  transform: translateX(0px) translateY(480px);
+  position: relative;
+}
+
+.exit-button:hover {
+  background-color: #fff;
+  color: #29103e;
 }

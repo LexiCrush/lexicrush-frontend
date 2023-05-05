@@ -20,6 +20,8 @@ function Longest() {
   const [hintVisible, setHintVisible] = useState(false);
   const [remainingTime, setRemainingTime] = useState(10);
   const [restart, setRestart] = useState(false);
+  const [goExit, setExit] = React.useState(false);
+
 
   const token = localStorage.getItem('token');
   const username = token.split('|')[0];
@@ -37,9 +39,11 @@ function Longest() {
   }, [round]);
 
 
+
+
   function handleTimeOver() {
-    if (round === 5) {
-      setRound(1);
+    if (round === 5) {    
+      setRound(1)  
       setHelloVisible(false); // hide the answer
       setHintVisible(false); // hide the hint
       setCurrentQuestion(''); // clear the current question
@@ -47,6 +51,7 @@ function Longest() {
       setRemainingTime(10); // reset the timer
       setBotAnswer(''); // clear the bot answer
       setRoundResult(''); // clear the round result
+      setGoBack(true);
     } else {
       setRound(round + 1); // increase the round
       setRemainingTime(10); // reset the timer
@@ -57,7 +62,6 @@ function Longest() {
     }
   }
   
-
   useEffect(() => { // get a new question
     if (currentQuestion === '') {
       axios.get('http://localhost:8080/api/getq')
@@ -156,17 +160,21 @@ function Longest() {
     }
   }
 
-  function handleGoBackClick() {
-    setGoBack(true);
-  }
 
   if (goBack) {
-    return <Navigate to="/gamepage" />;
+    return <Navigate to="/test" />;
+  }
+
+  function handlegoExit() {
+    setExit(true);
+  }
+
+  if (goExit) {
+    return <Navigate to="/profile" />;
   }
 
 
   return (
-
     <div id="loading-indicators">
       <div className="loading-indicator" id="loading-indicator__1">
       </div>
@@ -180,11 +188,12 @@ function Longest() {
       </div>
       <div className="rectangle-left">
         <h1 class="player-name">{username}</h1>
-        <button className="arrow circle left" onClick={handleGoBackClick}></button>
-
         <button onClick={() => { setHintVisible(true) }} className="hint-button" style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
           {hint}
         </button>
+        <button onClick={() => { handlegoExit(true)}} className="exit-button" style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>  
+        Exit
+       </button>
       </div>
       <div className="rectangle-right">
         <h1 class="bot-name">Bot</h1>
@@ -211,7 +220,7 @@ function Longest() {
         </div>
       </div>
       <p>
-        <span className="xx">
+        <span className="xx"> {/* user text input box */}
           <input type="text" placeholder="Enter" onKeyDown={handleKeyDown} onChange={handleChange} on />
           <span class="my-span"></span>
         </span>
