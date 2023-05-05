@@ -9,8 +9,22 @@ function Auth() {
   const [goBack, setGoBack] = React.useState(false);
   const [goToGame, setGoToGame] = React.useState(false);
 
+
   if (accessToken) {
-    return <Navigate to="/profile" />; // redirect to gamepage if already logged in
+
+    const tokenTime = accessToken.split('|')[1];
+    const currentTime = new Date().getTime();
+
+    if (currentTime - tokenTime > 1000 * 60 * 60 * 2) { // if token is older than 2 hours
+      localStorage.removeItem('token'); // remove token from local storage
+      alert('Your session has expired. Please log in again.'); // alert user
+      return <Navigate to="/auth" />; // redirect to login page
+
+    } else {
+
+      console.log("Current time=" + currentTime);
+      return <Navigate to="/profile" />; // redirect to gamepage if already logged in
+    }
   }
 
   // if (goBack) {
@@ -24,19 +38,19 @@ function Auth() {
 
     // Check if username is at least 5 chars long
     if (username.length < 5) {
-        alert('Username must be at least 5 characters long');
-        return;
+      alert('Username must be at least 5 characters long');
+      return;
     }
 
     if (username.length > 12) {
       alert('Username can not be longer than 12 characters');
       return;
-  }
+    }
 
     if (password.length < 5) {
       alert('Password must be at least 5 characters long');
       return;
-  }
+    }
 
     axios.post('http://localhost:8080/auth/register', {
       username: username,
@@ -48,12 +62,12 @@ function Auth() {
     })
       .then((response) => {
         const username = response.data;
-        if(username){
-            alert(`Success! ${username} has been registered with Lexicrush`);
-            document.getElementById("chk").checked = true;
+        if (username) {
+          alert(`Success! ${username} has been registered with Lexicrush`);
+          document.getElementById("chk").checked = true;
         } else {
-            alert(`An account with that username already exists`);
-            document.getElementById("chk").checked = true;
+          alert(`An account with that username already exists`);
+          document.getElementById("chk").checked = true;
         }
       })
       .catch((error) => {
@@ -76,12 +90,12 @@ function Auth() {
     })
       .then((response) => {
         const token = response.data;
-        if(token.includes("|")){
-            localStorage.setItem('token', token);
-            alert(`Login successful!`);
-            setGoToGame(true);
+        if (token.includes("|")) {
+          localStorage.setItem('token', token);
+          alert(`Login successful!`);
+          setGoToGame(true);
         } else {
-            alert(`Invalid username or password`);
+          alert(`Invalid username or password`);
         }
       })
       .catch((error) => {

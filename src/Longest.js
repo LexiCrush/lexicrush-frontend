@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "./Longest.css";
 import { Navigate } from "react-router-dom";
 import axios from 'axios';
+import { set } from 'animejs';
 
 function Longest() {
   const accessToken = localStorage.getItem('token');
@@ -22,6 +23,7 @@ function Longest() {
   const [restart, setRestart] = useState(false);
   const [goExit, setExit] = React.useState(false);
   const [currentScore, setCurrentScore] = React.useState(false);
+  const [endGame, setEndGame] = React.useState(false);
 
 
   const token = localStorage.getItem('token');
@@ -147,23 +149,46 @@ function Longest() {
       .then(response => { console.log(response); setRoundResult(response.data); })
       .catch(error => console.error(error));
 
-    console.log('Round Result:', roundResult);
-  }
 
-
-  const getCurrentScore = () => {
-    axios.get('http://localhost:8080/api/getCurrentScore',{
+    axios.get('http://localhost:8080/api/getCurrentScore', {
       headers: {
-        'Access-Token': accessToken,
+        'Access-Token': accessToken
       }
     })
       .then(response => { console.log(response); setCurrentScore(response.data); })
       .catch(error => console.error(error));
 
     console.log('Current Score:', currentScore);
+
   }
 
-  
+
+  // const getCurrentScore = () => {
+  //   axios.get('http://localhost:8080/api/getCurrentScore',{
+  //     headers: {
+  //       'Access-Token': accessToken,
+  //     }
+  //   })
+  //     .then(response => { console.log(response); setCurrentScore(response.data); })
+  //     .catch(error => console.error(error));
+
+  //   console.log('Current Score:', currentScore);
+  // }
+
+  const handleEndGame = () => {
+    console.log('End Game');
+    console.log('accessToken:', accessToken);
+    
+    axios.post('http://localhost:8080/api/endGame', {
+    }, {
+      headers: {
+        'Access-Token': accessToken
+      }
+    })
+      .then(response => { console.log(response); setEndGame(response.data); })
+      .catch(error => console.error(error));
+  }
+
 
   const handleChange = (e) => {
     setAnswer(e.target.value); // this is the text in the input field
@@ -177,24 +202,27 @@ function Longest() {
       // console.log('Points received by API:', points);
       setHelloVisible(true);
       setBotAnswer(botAnswer); // add this line
+      handleScoring();
     }
   }
 
 
   if (goBack) {
+    handleEndGame();
     return <Navigate to="/test" />;
   }
 
-  if (botAnswer) {
-    handleScoring();
-    getCurrentScore();
-  }
+  // if (points > 0) {
+  //   handleScoring();
+  //   getCurrentScore();
+  // }
 
   function handlegoExit() {
     setExit(true);
   }
 
   if (goExit) {
+    handleEndGame();
     return <Navigate to="/profile" />;
   }
 
@@ -208,7 +236,7 @@ function Longest() {
           <div class="av-eye"></div>
         </div>
         <div className="timer-container" style={{ position: 'relative', top: -20, right: -340 }}>
-          <Time key={remainingTime} initialTime={10} onTimeOver={handleTimeOver} />
+          <Time key={remainingTime} initialTime={3} onTimeOver={handleTimeOver} />
         </div>
       </div>
       <div className="rectangle-left">
@@ -242,12 +270,12 @@ function Longest() {
             </div>
 
           }
-    
+
         </div>
       </div>
       <p>
         <span className="xx"> {/* user text input box */}
-          <input type="text" placeholder="Enter" onKeyDown={handleKeyDown} onChange={handleChange} on />
+          <input type="text" placeholder="Enter" onKeyDown={handleKeyDown} onChange={handleChange} />
           <span class="my-span"></span>
         </span>
       </p>
