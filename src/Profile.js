@@ -23,10 +23,10 @@ function Profile() {
       <div class="card">
         <div class="additional">
           <div class="user-card">
-            <div class="level cent">
+            <div class="level cent" style={{fontFamily: 'Gamefont'}}>
               Level 1
             </div>
-            <div class="points cent">
+            <div class="points cent" style={{fontFamily: 'Gamefont'}}>
               5,312 Points
             </div>
             <svg width="110" height="110" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" class="cent">
@@ -43,23 +43,23 @@ function Profile() {
               </g>
             </svg>
           </div>
-          <div class="more-info">
+          <div class="more-info" style={{fontFamily: 'Gamefont'}}>
             <h1>{userhandle}</h1>
             <div class="stats">
               <div>
-                <div class="title">Wins</div>
+                <div class="title" style={{fontFamily: 'Gamefont'}}>Wins</div>
                 <i class="fa fa-trophy"></i>
-                <div class="value">2</div>
+                <div class="value" style={{fontFamily: 'Gamefont'}}>2</div>
               </div>
               <div>
-                <div class="title">Matches</div>
+                <div class="title" style={{fontFamily: 'Gamefont'}}>Matches</div>
                 <i class="fa fa-gamepad"></i>
-                <div class="value">27</div>
+                <div class="value" style={{fontFamily: 'Gamefont'}}>27</div>
               </div>
             </div>
           </div>
         </div>
-        <div class="general">
+        <div class="general" style={{fontFamily: 'Gamefont'}}>
           <h1>{userhandle}</h1>
           <span>How to Play</span>
           <span class="more">Hover...</span>

@@ -63,6 +63,11 @@ label {
   src: url('./fonts/siller.otf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Gamefont';
+  src: url('./fonts/gamefont.ttf') format('truetype');
+}
+
 
 .button-container {
   margin-top: 40px;

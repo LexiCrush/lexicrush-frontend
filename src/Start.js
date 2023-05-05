@@ -10,7 +10,7 @@ function Start() {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setShowButton(true);      
-    }, 2500);
+    }, 3500);
 
     return () => clearTimeout(timeoutId);
   }, []);
@@ -19,7 +19,7 @@ function Start() {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setShowTitle(true);
-    }, 1300);
+    }, 3000);
 
     return () => clearTimeout(timeoutId);
   }, []);
@@ -55,7 +55,7 @@ function Start() {
     }
     {showButton && 
       <button className="play-button" onClick={handleButtonClick} style={{fontFamily: 'ButtonFont' }}>
-        Get Started
+       Begin
       </button>
     }
         <div class="scene" style={{ zIndex: "-1" }}>
