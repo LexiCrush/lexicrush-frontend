@@ -220,13 +220,33 @@ body {
   border-radius: 50px;
   background-color: #29103e;
   color: #fff;
-  padding: 10px 30px;
+  padding: 20px 50px;
   cursor: pointer;
   border: none;
-  transform: translateX(220px) translateY(-70px);
+  display: flex;
+  align-items: center;
+  transform: translate(145%, 0%);
 }
 
 .profile-play:hover {
+  background-color: #fff;
+  color: #29103e;
+}
+
+
+.buy-hint {
+  border-radius: 50px;
+  background-color: #29103e;
+  color: #fff;
+  padding: 20px 40px;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  transform: translate(135%, 10%);
+}
+
+.buy-hint:hover {
   background-color: #fff;
   color: #29103e;
 }

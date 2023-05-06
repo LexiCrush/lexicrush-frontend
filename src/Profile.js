@@ -8,6 +8,15 @@ function Profile() {
   const username = token.split('|')[0];
   const userhandle = "@" + username;
   const [goToPlay, setGoToPlay] = React.useState(false);
+  const [Logout, setLogout] = React.useState(false);
+
+  function handleLogoutClick() {
+    setLogout(true);
+  }
+
+  if (Logout) {
+    return <Navigate to= "/login"/>;
+  }
 
   function handlePlayClick() {
     setGoToPlay(true);
@@ -26,9 +35,9 @@ function Profile() {
             <div class="level cent" style={{fontFamily: 'Gamefont'}}>
               Level 1
             </div>
-            <div class="points cent" style={{fontFamily: 'Gamefont'}}>
-              5,312 Points
-            </div>
+            <button class="points cent" onClick={handleLogoutClick} style={{fontFamily: 'Gamefont'}}>
+              Logout
+            </button>
             <svg width="110" height="110" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" class="cent">
               <div style={{ width: "100%", height: "100%" }}>
               </div>
@@ -68,8 +77,11 @@ function Profile() {
       <div class="a">
         <div class="a-eye"></div>
       </div>
-      <button className="profile-play" onClick={handlePlayClick} style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
+      <button className="profile-play" onClick={handlePlayClick} style={{ display: 'block', fontFamily: 'ButtonFont'  }}>
         Play
+      </button> 
+      <button className="buy-hint" style={{ display: 'block', fontFamily: 'ButtonFont'  }}>
+        Buy Hint
       </button> 
     </div>
 
