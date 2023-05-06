@@ -6,7 +6,6 @@ import axios from 'axios';
 function Auth() {
   // if there is a token in local storage, redirect to gamepage
   const accessToken = localStorage.getItem('token');
-  const [goBack, setGoBack] = React.useState(false);
   const [goToGame, setGoToGame] = React.useState(false);
 
 
@@ -22,7 +21,7 @@ function Auth() {
 
     } else {
 
-      console.log("Current time=" + currentTime);
+      console.log("Token is still valid: " + accessToken);
       return <Navigate to="/profile" />; // redirect to gamepage if already logged in
     }
   }

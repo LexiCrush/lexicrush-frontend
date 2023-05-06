@@ -31,9 +31,10 @@ function Longest() {
   function handleTimeOver() {
     if (round === 5) {
       handleEndGame();
-      navigate('/test');
+      // navigate('/gameover');
     } else {
       setCurrentAnswer("");
+      setPending(false);
       setRound(round + 1); // increase the round
       setRemainingTime(10); // reset the timer
       setBotAnswer(''); // clear the bot answer
@@ -104,7 +105,7 @@ function Longest() {
   // Fetch the updated current score from backend
   useEffect(() => {
     if (refreshScore) {
-      console.log('Get updated score' + accessToken);
+      console.log('Get updated score: ' + accessToken);
       axios.get('http://localhost:8080/api/getCurrentScore',{
         headers: {
           'Access-Token': accessToken,
@@ -128,7 +129,7 @@ function Longest() {
 
   const handleKeyDown = (e) => {
     if (e.keyCode === 13) { // Enter key
-      e.preventDefault(); // prevent the default action (submitting the form) when pressing enter key in input field
+      // e.preventDefault(); // prevent the default action (submitting the form) when pressing enter key in input field
       setPending(true);
     }
   }
@@ -145,7 +146,7 @@ function Longest() {
     })
       .then(response => {
         console.log(response);
-        navigate('/test')
+        navigate('/gameover')
       })
       .catch(error => console.error(error));
   }
