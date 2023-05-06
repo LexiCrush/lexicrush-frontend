@@ -1,7 +1,7 @@
 import './App.css';
 import Start from "./Start"
 import Auth from "./Auth"
-import Gamepage from "./Gamepage"
+import Gameover from "./Gameover"
 import Play from './Play';
 import Longest from './Longest';
 import Test from './Test';
@@ -37,7 +37,7 @@ function App() {
           <Routes>
             <Route path= "/" element={<Start />} />
             <Route path= "/login" element={<Auth />} />
-            <Route path= "/gamepage" element={<Gamepage />} />
+            <Route path= "/gameover" element={<Gameover />} />
             {/* <Route path= "/play" element={<Play />} /> */}
             <Route path= "/longest" element={<Longest />} />
             <Route path = "/test" element={<Test />} />

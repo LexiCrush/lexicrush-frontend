@@ -15,7 +15,7 @@ function Test() {
   }
 
   if (returnHome) {
-    return <Navigate to="/gamepage" />;
+    return <Navigate to="/gameover" />;
   }
 
   if (playAgain) {

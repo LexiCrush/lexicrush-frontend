@@ -1,9 +1,9 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import "./Gamepage.css"
+import "./Gameover.css"
 
 
-function Gamepage() {
+function Gameover() {
   const [goToPlay, setGoToPlay] = React.useState(false);
   const [goToProfile, setgoToProfile] = React.useState(false);
 
@@ -43,15 +43,20 @@ function Gamepage() {
         </div>
       </div>
     </div>
+    <h1 className="glitch-game-over"  style={{fontFamily: 'ButtonFont', marginBottom: '-110px', color: "white", top: '50%', left: '50%', transform: 'translate(-50%, -40%)'}}>
+        <span aria-hidden="true">Game over</span>
+        Game Over
+        <span aria-hidden="true">Game over</span>
+        </h1>
     <button className="rounded" onClick={handlePlayClick} style={{ display: 'block', marginBottom : '10px', fontFamily: 'ButtonFont'}}>  
-      Play
+      Play Again
     </button>
     <button className="profile-button" onClick={handleProfileClick} style={{ display: 'block', fontFamily: 'ButtonFont'}}>
-      Profile
+      Return Home
     </button>
     
   </body>
   );
 }
 
-export default Gamepage;
+export default Gameover;
