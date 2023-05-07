@@ -163,37 +163,43 @@ function Longest() {
         <div className="timer-container" style={{ position: 'relative', top: 15, right: -340 }}>
           <Time key={remainingTime} initialTime={8} onTimeOver={handleTimeOver} />
         </div>
-        <div className='round-container'>
+        <div className='round-container'  style={{fontFamily: "Gamefont" }}>
           {"Round " + round}
         </div>
       </div>
       <div className="rectangle-left">
-        <h1 class="player-name">{username}</h1>
+        <h1 class="player-name" style={{fontFamily: "Gamefont" }} >{username}</h1>
         {/* <button onClick={() => { setHintVisible(true) }} className="hint-button" style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
           {hint}
         </button> */}
         <button onClick={() => { handleEndGame() }} className="exit-button" style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
           Exit
         </button>
+        <div id="saturn">
+          <div class="plan bottom plan-bg"></div>
+          <div class="rings"></div>
+          <div class="plan top plan-bg"></div>
+        </div>
+        <div class="score-position" style={{fontFamily: "Gamefont" }}>{currentScore}</div>
       </div>
       <div className="rectangle-right">
-        <h1 class="bot-name">Bot</h1>
+        <h1 class="bot-name" style={{fontFamily: "Gamefont" }}>Bot</h1>
       </div>
       <div className="squarebot">
         <div class="avbot">
           <div class="avbot-eye"></div>
         </div>
       </div>
-      <div className="question-position">{currentQuestion}
+      <div className="question-position"  style={{fontFamily: "Gamefont" }}>{currentQuestion}
         {/* // displays current Q */}
         <div>
           {helloVisible &&
-            <div className="xanswer">
+            <div className="xanswer"  style={{fontFamily: "Gamefont" }}>
               {roundResult + "current score is: " + currentScore}
             </div>
           }
           {botAnswer &&
-            <div className="botAnswer" style={{ color: "white", fontFamily: "aom" }}>
+            <div className="botAnswer" style={{ color: "white", fontFamily: "Gamefont" }}>
               {"@BOT123 Chose: " + botAnswer}
             </div>
 
