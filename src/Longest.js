@@ -5,8 +5,8 @@ import axios from 'axios';
 
 function Longest() {
   const navigate = useNavigate();
-  const accessToken = localStorage.getItem('token');
-  const username = accessToken.split('|')[0];
+  const accessToken = localStorage.getItem('token') || 'null | 0';
+  const username = accessToken.split('|')[0] || 'null | 0';
 
   // Game status
   const [round, setRound] = useState(1);
@@ -149,6 +149,10 @@ function Longest() {
         navigate('/gameover')
       })
       .catch(error => console.error(error));
+  }
+
+  if (accessToken === 'null | 0') {
+    navigate('/login');
   }
 
 
