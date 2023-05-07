@@ -1,7 +1,7 @@
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navigate } from "react-router-dom";
 import './Profile.css';
+import axios from 'axios';
 
 function Profile() {
   const token = localStorage.getItem('token');
@@ -9,6 +9,25 @@ function Profile() {
   const userhandle = "@" + username;
   const [goToPlay, setGoToPlay] = React.useState(false);
   const [Logout, setLogout] = React.useState(false);
+  const [HighScore, setHighScore] = React.useState(null);
+
+  
+    // Fetch the updated current score from backend
+    useEffect(() => {
+      console.log('Get updated score: ' + token);
+      axios.get('http://localhost:8080/api/getHighScore',{
+        headers: {
+          'Access-Token': token,
+        }
+      })
+        .then(response => {
+          setHighScore(response.data);
+        })
+        .catch(error => console.error(error));
+ 
+      // console.log('Current Score:', currentScore);
+  },[])
+
 
   function handleLogoutClick() {
     setLogout(true);
@@ -25,6 +44,7 @@ function Profile() {
   if (goToPlay) {
     return <Navigate to="/longest" />;
   }
+  
 
 
   return (
@@ -56,9 +76,9 @@ function Profile() {
             <h1>{userhandle}</h1>
             <div class="stats">
               <div>
-                <div class="title" style={{fontFamily: 'Gamefont'}}>Wins</div>
+                <div class="title" style={{fontFamily: 'Gamefont'}}>High Score</div>
                 <i class="fa fa-trophy"></i>
-                <div class="value" style={{fontFamily: 'Gamefont'}}>2</div>
+                <div class="value" style={{fontFamily: 'Gamefont'}}>{HighScore}</div>
               </div>
               <div>
                 <div class="title" style={{fontFamily: 'Gamefont'}}>Matches</div>
