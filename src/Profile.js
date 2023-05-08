@@ -13,6 +13,7 @@ function Profile() {
   const [goToPlay, setGoToPlay] = React.useState(false);
   const [Logout, setLogout] = React.useState(false);
   const [HighScore, setHighScore] = React.useState(null);
+  const [NumGamesPlayed, setNumGamesPlayed] = React.useState(null);
   const [AvailibleHints, setAvailibleHints] = React.useState(null);
   const [AvailibleCoins, setAvailibleCoins] = React.useState(null);
   const [HintRequested, setHintRequested] = React.useState(false);
@@ -34,8 +35,22 @@ function Profile() {
         setHighScore(response.data);
       })
       .catch(error => console.error(error));
+  }, [])
 
-    // console.log('Current Score:', currentScore);
+  useEffect(() => {
+    if (token === 'null | 0') {
+      setHighScore('Login/Register to Play!');
+    }
+    console.log('Get updated score: ' + token);
+    axios.get('http://localhost:8080/api/getNumGames', {
+      headers: {
+        'Access-Token': token,
+      }
+    })
+      .then(response => {
+        setNumGamesPlayed(response.data);
+      })
+      .catch(error => console.error(error));
   }, [])
 
 
@@ -53,7 +68,7 @@ function Profile() {
       })
       .catch(error => console.error(error));
   }, [refreshHintCoinEq])
-  
+
 
   useEffect(() => {
     axios.get('http://localhost:8080/api/getCoinCount', {
@@ -71,11 +86,16 @@ function Profile() {
   // post to /buyHint 
   useEffect(() => {
     if (HintRequested) {
+      if (AvailibleCoins < 10) {
+        alert("You don't have enough coins left to buy a hint :(");
+        setHintRequested(false);
+        return;
+      }
       axios.post('http://localhost:8080/api/buyHint', {}, {
         headers: {
           'Access-Token': token,
         }
-      })  
+      })
         .then(response => {
           setRefreshHintCoinEq(true);
           setHintRequested(false);
@@ -104,11 +124,11 @@ function Profile() {
   if (goToPlay) {
     return <Navigate to="/longest" />;
   }
-  
 
   function handleHintTransaction() {
     setHintRequested(true);
   }
+
 
 
   return (
@@ -140,7 +160,7 @@ function Profile() {
             <h1>{userhandle}</h1>
             <div class="stats">
               <div>
-                <div class="title" style={{ fontFamily: 'Gamefont' }}>Availible Hints</div>
+                <div class="title" style={{ fontFamily: 'Gamefont' }}>Hints</div>
                 <i class="fa fa-gamepad"></i>
                 <div class="value" style={{ fontFamily: 'Gamefont' }}>{AvailibleHints}</div>
               </div>
@@ -153,6 +173,11 @@ function Profile() {
                 <div class="title" style={{ fontFamily: 'Gamefont' }}>Coins</div>
                 <i class="fa fa-gamepad"></i>
                 <div class="value" style={{ fontFamily: 'Gamefont' }}>{AvailibleCoins}</div>
+              </div>
+              <div>
+                <div class="title" style={{ fontFamily: 'Gamefont' }}># of Games</div>
+                <i class="fa fa-gamepad"></i>
+                <div class="value" style={{ fontFamily: 'Gamefont' }}>{NumGamesPlayed}</div>
               </div>
             </div>
           </div>
