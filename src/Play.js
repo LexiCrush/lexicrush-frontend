@@ -43,7 +43,7 @@ function PlayGame() {
   }, [points]);
 
   useEffect(() => { // retrieve a hint
-    axios.get('http://10.0.0.16:8080/api/hint', {
+    axios.get('http://10.0.0.16:8080/api/useHint', {
       params: {
         question: currentQuestion
       }

@@ -13,7 +13,11 @@ function Profile() {
   const [goToPlay, setGoToPlay] = React.useState(false);
   const [Logout, setLogout] = React.useState(false);
   const [HighScore, setHighScore] = React.useState(null);
-  const [Hints, setHints] = React.useState(null);
+  const [AvailibleHints, setAvailibleHints] = React.useState(null);
+  const [AvailibleCoins, setAvailibleCoins] = React.useState(null);
+  const [HintRequested, setHintRequested] = React.useState(false);
+  const [refreshHintCoinEq, setRefreshHintCoinEq] = React.useState(false);
+
 
   // Fetch the updated current score from backend
   useEffect(() => {
@@ -33,6 +37,52 @@ function Profile() {
 
     // console.log('Current Score:', currentScore);
   }, [])
+
+
+
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/getHintCount', {
+      headers: {
+        'Access-Token': token,
+      }
+    })
+      .then(response => {
+        setAvailibleHints(response.data);
+        setRefreshHintCoinEq(false);
+      })
+      .catch(error => console.error(error));
+  }, [refreshHintCoinEq])
+  
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/getCoinCount', {
+      headers: {
+        'Access-Token': token,
+      }
+    })
+      .then(response => {
+        setAvailibleCoins(response.data);
+        setRefreshHintCoinEq(false);
+      })
+      .catch(error => console.error(error));
+  }, [refreshHintCoinEq])
+
+  // post to /buyHint 
+  useEffect(() => {
+    if (HintRequested) {
+      axios.post('http://localhost:8080/api/buyHint', {}, {
+        headers: {
+          'Access-Token': token,
+        }
+      })  
+        .then(response => {
+          setRefreshHintCoinEq(true);
+          setHintRequested(false);
+        })
+        .catch(error => console.error(error));
+    }
+  }, [HintRequested])
 
   if (token === 'null | 0') {
     return <Navigate to="/login" />;
@@ -54,7 +104,11 @@ function Profile() {
   if (goToPlay) {
     return <Navigate to="/longest" />;
   }
+  
 
+  function handleHintTransaction() {
+    setHintRequested(true);
+  }
 
 
   return (
@@ -62,7 +116,7 @@ function Profile() {
       <div class="card">
         <div class="additional">
           <div class="user-card">
-            <button class="points cent" style={{ fontFamily: 'Gamefont' }}>
+            <button class="points cent" onClick={handleHintTransaction} style={{ fontFamily: 'Gamefont' }}>
               Buy Hint
             </button>
             <button class="level cent" onClick={handleLogoutClick} style={{ fontFamily: 'Gamefont' }}>
@@ -86,19 +140,19 @@ function Profile() {
             <h1>{userhandle}</h1>
             <div class="stats">
               <div>
+                <div class="title" style={{ fontFamily: 'Gamefont' }}>Availible Hints</div>
+                <i class="fa fa-gamepad"></i>
+                <div class="value" style={{ fontFamily: 'Gamefont' }}>{AvailibleHints}</div>
+              </div>
+              <div>
                 <div class="title" style={{ fontFamily: 'Gamefont' }}>High Score</div>
                 <i class="fa fa-trophy"></i>
                 <div class="value" style={{ fontFamily: 'Gamefont' }}>{HighScore}</div>
               </div>
               <div>
-                <div class="title" style={{ fontFamily: 'Gamefont' }}>Total Points</div>
+                <div class="title" style={{ fontFamily: 'Gamefont' }}>Coins</div>
                 <i class="fa fa-gamepad"></i>
-                <div class="value" style={{ fontFamily: 'Gamefont' }}>200</div>
-              </div>
-              <div>
-                <div class="title" style={{ fontFamily: 'Gamefont' }}>Hints</div>
-                <i class="fa fa-gamepad"></i>
-                <div class="value" style={{ fontFamily: 'Gamefont' }}>0</div>
+                <div class="value" style={{ fontFamily: 'Gamefont' }}>{AvailibleCoins}</div>
               </div>
             </div>
           </div>

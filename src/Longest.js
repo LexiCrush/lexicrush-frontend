@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "./Longest.css";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { set } from 'animejs';
 
 function Longest() {
   const navigate = useNavigate();
@@ -11,10 +12,7 @@ function Longest() {
   // Game status
   const [round, setRound] = useState(1);
   const [roundResult, setRoundResult] = useState('');
-  const [currentQuestion, setCurrentQuestion] = useState(() => {
-    const storedQuestion = localStorage.getItem('currentQuestion');
-    return storedQuestion !== null ? storedQuestion : '';
-  });
+  const [currentQuestion, setCurrentQuestion] = useState('');
   const [currentScore, setCurrentScore] = React.useState(0);
   const [remainingTime, setRemainingTime] = useState(10);
 
@@ -26,18 +24,22 @@ function Longest() {
   // Pending status
   const [pending, setPending] = useState(false);
   const [refreshScore, setRefreshScore] = useState(false);
-  const [answersIsCorrect, setAnswersIsCorrect] = useState(false);
+  const [answerIsCorrect, setAnswerIsCorrect] = useState('unknown');
 
+  //gameover message is stored in local storage. set it to empty string
+  localStorage.setItem('gameoverMessage', '');
 
 
   function handleTimeOver() {
     if (round === 5) {
+      setAnswerIsCorrect(false);
       handleEndGame();
       // navigate('/gameover');
     } else {
-      setCurrentAnswer("");
-      setPending(false);
       setRound(round + 1); // increase the round
+      setCurrentAnswer("");
+      setAnswerIsCorrect(false);
+      setPending(false);
       setRemainingTime(10); // reset the timer
       setBotAnswer(''); // clear the bot answer
       setRoundResult(''); // clear the round result
@@ -46,19 +48,45 @@ function Longest() {
   }
 
   useEffect(() => { // get a new question
-    console.log('New Round: ' + round);
     axios.get('http://localhost:8080/api/getq')
       .then(response => {
+        console.log('Current Question:', currentQuestion);
         setCurrentQuestion(response.data);
-        localStorage.setItem('currentQuestion', response.data);
       })
       .catch(error => console.error(error));
   }, [round]);
 
-  // Get bot answer when enter is pressed
   useEffect(() => {
-    if (pending && botAnswer.length === 0) {
-      console.log('Enter pressed');
+    if (answerIsCorrect === false) {
+
+      axios.post('http://localhost:8080/api/checkans', {
+        question: currentQuestion,
+        answer: currentAnswer,
+      }, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }
+      })
+        .then(response => {
+          console.log(response);
+          if (response.data >= 1) {
+            setAnswerIsCorrect(true);
+          } else {
+            setAnswerIsCorrect(false);
+            setPending(false);
+          }
+        })
+
+        .catch(error => {
+          console.error(error);
+        });
+    }
+  }, [pending])
+
+
+  // Get bot answer when enter is pressed and checkans says the answer is correct
+  useEffect(() => {
+    if (pending && botAnswer.length === 0 && answerIsCorrect === true) {
       axios.get('http://localhost:8080/api/bot', {
         params: {
           question: currentQuestion
@@ -73,16 +101,16 @@ function Longest() {
           console.error(error);
         });
     }
-  }, [pending])
+  }, [answerIsCorrect])
 
 
   // Handle scoring when bot answer is retreived
   useEffect(() => {
-    if (pending && currentAnswer.length > 0 && botAnswer.length > 0) {
-      console.log('Handle score');
-      // console.log('Player Answer:', currentAnswer);
-      // console.log('Bots Answer:', botAnswer);
+    console.log('currentAnswer:', currentAnswer);
+    console.log('botAnswer:', botAnswer);
 
+
+    if (currentAnswer.length > 0 && botAnswer.length > 0) {
       axios.post('http://localhost:8080/api/updateCurrentScore', {
         playerAnswer: currentAnswer,
         botAnswer: botAnswer,
@@ -103,12 +131,11 @@ function Longest() {
           console.error(error)
         });
     }
-  }, [botAnswer])
+  }, [pending, botAnswer, answerIsCorrect])
 
   // Fetch the updated current score from backend
   useEffect(() => {
     if (refreshScore) {
-      console.log('Get updated score: ' + accessToken);
       axios.get('http://localhost:8080/api/getCurrentScore', {
         headers: {
           'Access-Token': accessToken,
@@ -122,40 +149,12 @@ function Longest() {
         })
         .catch(error => console.error(error));
 
-      // console.log('Current Score:', currentScore);
     }
   }, [refreshScore])
 
   const handleAnswerChange = (e) => {
     setCurrentAnswer(e.target.value); // this is the text in the input field
-
   }
-
-
-  
-  useEffect(() => {
-    axios.post('http://localhost:8080/api/checkans', {
-      question: currentQuestion,
-      answer: currentAnswer,
-    }, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      }
-    })
-      .then(response => {
-        console.log(response);
-        if (response.data >= 1) {
-          setAnswersIsCorrect(true);
-        } else {
-          setAnswersIsCorrect(false);
-        }
-      })
-
-      .catch(error => {
-        console.error(error);
-        setAnswersIsCorrect(false);
-      });
-  }, [currentQuestion, currentAnswer])
 
   const handleKeyDown = (e) => {
     if (e.keyCode === 13) { // Enter key
@@ -165,8 +164,6 @@ function Longest() {
   }
 
   const handleEndGame = () => {
-    console.log('End Game');
-    console.log('accessToken:', accessToken);
 
     axios.post('http://localhost:8080/api/endGame', {
     }, {
@@ -176,6 +173,7 @@ function Longest() {
     })
       .then(response => {
         console.log(response);
+        localStorage.setItem('gameoverMessage', response.data);
         navigate('/gameover')
       })
       .catch(error => console.error(error));
@@ -207,7 +205,7 @@ function Longest() {
           <div class="av-eye"></div>
         </div>
         <div className="timer-container" style={{ position: 'relative', top: 15, right: -340 }}>
-          <Time key={remainingTime} initialTime={8} onTimeOver={handleTimeOver} />
+          <Time key={remainingTime} initialTime={5} onTimeOver={handleTimeOver} />
         </div>
         <div className='round-container' style={{ fontFamily: "Gamefont" }}>
           {"Round " + round}
@@ -273,15 +271,12 @@ function Longest() {
 
 function Time(props) {
   const { initialTime, onTimeOver } = props;
-  const [timeLeft, setTimeLeft] = useState(
-    localStorage.getItem("timeLeft") || initialTime
-  );
+  const [timeLeft, setTimeLeft] = useState(initialTime);
   const [timerId, setTimerId] = useState(null);
 
   const startTimer = () => {
     const newTimerId = setTimeout(() => {
       setTimeLeft(timeLeft - 1);
-      localStorage.setItem("timeLeft", timeLeft - 1);
     }, 1000);
     setTimerId(newTimerId);
   };
@@ -292,7 +287,6 @@ function Time(props) {
 
   const restartTimer = () => {
     setTimeLeft(initialTime);
-    localStorage.removeItem("timeLeft");
   };
 
   useEffect(() => {
