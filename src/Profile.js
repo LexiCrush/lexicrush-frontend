@@ -8,11 +8,12 @@ function Profile() {
   // token is from local storage or if not there, null
   const token = localStorage.getItem('token') || 'null | 0';
   const username = token.split('|')[0] || 'null | 0';
-  const userhandle = "@" + username || 'null | 0';
+  const userhandle = "Hey, " + username + "!" || 'null | 0';
 
   const [goToPlay, setGoToPlay] = React.useState(false);
   const [Logout, setLogout] = React.useState(false);
   const [HighScore, setHighScore] = React.useState(null);
+  const [Hints, setHints] = React.useState(null);
 
   // Fetch the updated current score from backend
   useEffect(() => {
@@ -61,10 +62,10 @@ function Profile() {
       <div class="card">
         <div class="additional">
           <div class="user-card">
-            <div class="level cent" style={{ fontFamily: 'Gamefont' }}>
-              Level 1
-            </div>
-            <button class="points cent" onClick={handleLogoutClick} style={{ fontFamily: 'Gamefont' }}>
+            <button class="points cent" style={{ fontFamily: 'Gamefont' }}>
+              Buy Hint
+            </button>
+            <button class="level cent" onClick={handleLogoutClick} style={{ fontFamily: 'Gamefont' }}>
               Logout
             </button>
             <svg width="110" height="110" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" class="cent">
@@ -90,17 +91,29 @@ function Profile() {
                 <div class="value" style={{ fontFamily: 'Gamefont' }}>{HighScore}</div>
               </div>
               <div>
-                <div class="title" style={{ fontFamily: 'Gamefont' }}>Matches</div>
+                <div class="title" style={{ fontFamily: 'Gamefont' }}>Total Points</div>
                 <i class="fa fa-gamepad"></i>
-                <div class="value" style={{ fontFamily: 'Gamefont' }}>27</div>
+                <div class="value" style={{ fontFamily: 'Gamefont' }}>200</div>
+              </div>
+              <div>
+                <div class="title" style={{ fontFamily: 'Gamefont' }}>Hints</div>
+                <i class="fa fa-gamepad"></i>
+                <div class="value" style={{ fontFamily: 'Gamefont' }}>0</div>
               </div>
             </div>
           </div>
         </div>
         <div class="general" style={{ fontFamily: 'Gamefont' }}>
           <h1>{userhandle}</h1>
-          <span>How to Play</span>
-          <span class="more">Hover...</span>
+          <br></br>
+          <p>Welcome to Lexicrush, a timed word guessing game with a twist...</p>
+          <br></br>
+          <span style={{ fontWeight: 'bold' }}>How To Play?</span>
+          <br></br>
+          <p> Shortest/Longest word modes: Choose a valid answer with as FEW/MANY letters as possible. </p>
+          <br></br>
+          <p>Points are awarded based on how many letters shorter/longer your answer was than your opponents</p>
+          <br></br>
         </div>
       </div>
       <div class="a">
@@ -108,9 +121,6 @@ function Profile() {
       </div>
       <button className="profile-play" onClick={handlePlayClick} style={{ display: 'block', fontFamily: 'ButtonFont' }}>
         Play
-      </button>
-      <button className="buy-hint" style={{ display: 'block', fontFamily: 'ButtonFont' }}>
-        Buy Hint
       </button>
     </div>
 

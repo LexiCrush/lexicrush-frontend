@@ -92,12 +92,17 @@ body {
 .card .additional .more-info h1 {
   color: #fff;
   margin-bottom: 0;
-  font-size: 1.25em /* User Handle inside the more info card*/
+  font-size: 1em /* User Handle inside the more info card*/
 }
 
 .general h1 {
-  font-size: 1.25em; /* User Handle before hovering over the more info card*/
+  font-size: 1em; /* User Handle before hovering over the more info card*/
 }
+
+.general p {
+  font-size: 0.6em; /* User Handle before hovering over the more info card*/
+}
+
 
 .card .additional .coords {
   margin: 0 1rem;
