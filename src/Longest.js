@@ -210,7 +210,7 @@ function Longest() {
           <div class="av-eye"></div>
         </div>
         <div className="timer-container" style={{ position: 'relative', top: 15, right: -340 }}>
-          <Time key={remainingTime} initialTime={5} onTimeOver={handleTimeOver} />
+          <Time key={remainingTime} initialTime={10} onTimeOver={handleTimeOver} />
         </div>
         <div className='round-container' style={{ fontFamily: "Gamefont" }}>
           {"Round " + round}
