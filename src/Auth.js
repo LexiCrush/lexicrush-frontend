@@ -41,8 +41,8 @@ function Auth() {
       return;
     }
 
-    if (username.length > 12) {
-      alert('Username can not be longer than 12 characters');
+    if (username.length > 14) {
+      alert('Username can not be longer than 14 characters');
       return;
     }
 
