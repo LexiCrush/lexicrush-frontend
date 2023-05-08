@@ -59,7 +59,7 @@ function Gameover() {
       </h1>
 
       <div>
-        <h1 className="glitch-game-over" style={{ fontFamily: ''}}>
+        <h1 className="glitch-points" style={{ fontFamily: '' }}>
           {localStorage.getItem('gameoverMessage')}
         </h1>
       </div>

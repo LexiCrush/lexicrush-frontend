@@ -26,13 +26,14 @@ function Longest() {
   
 
   // Hint status
-  const [hintVisible, setHintVisible] = useState(false);
+  const [HintRequested, setHintRequested] = useState(false);
   const [hint, setHint] = useState('');
 
   // Pending status
   const [pending, setPending] = useState(false);
   const [refreshScore, setRefreshScore] = useState(false);
   const [answerIsCorrect, setAnswerIsCorrect] = useState(false);
+  const [roundDuration, setRoundDuration] = useState(3);
 
   //gameover message is stored in local storage. set it to empty string
   localStorage.setItem('gameoverMessage', '');
@@ -190,22 +191,23 @@ function Longest() {
 // write use effect to check if hintVisible is true
 
   useEffect(() => {
-    if (hintVisible) {
+    if (HintRequested) {
       axios.get(URL + '/api/useHint', {
         question: currentQuestion,
       }, {
         headers: {
           'Access-Token': accessToken,
+          'Content-Type': 'form-data',
         }
       })
         .then(response => {
           console.log(response);
           setHint(response.data);
-          setHintVisible(false);
+          setHintRequested(false);
         })
         .catch(error => console.error(error));
     }
-  }, [hintVisible])
+  }, [HintRequested])
 
 
 
@@ -225,9 +227,16 @@ function Longest() {
     }
   }
 
-  // define threeorten. if round is 0, set to 3, else set to 10
- 
 
+  useEffect(() => {
+    if (!round) {
+      setRoundDuration(3);
+    }
+    else {
+      setRoundDuration(15);
+    }
+  }, [round])
+ 
 
 
   return (
@@ -239,7 +248,7 @@ function Longest() {
           <div class="av-eye"></div>
         </div>
         <div className="timer-container" style={{ position: 'relative', top: 15, right: -340}}>
-          <Time key={remainingTime} initialTime={round === 0 ? 3 : 10} onTimeOver={handleTimeOver} />
+          <Time key={remainingTime} initialTime={roundDuration} onTimeOver={handleTimeOver} />
         </div>
         <div className='round-container' style={{ fontFamily: "Gamefont" }}>
           {round >= 1 ? "Round " + round : "Loading Lexicrush..."}
@@ -247,8 +256,8 @@ function Longest() {
       </div>
       <div className="rectangle-left">
         <h1 class="player-name" style={{ fontFamily: "Gamefont" }} >{username}</h1>
-        <button onClick={() => { setHintVisible(true)}} className="hint-button" style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
-          {"Hint"}
+        <button onClick={() => { setHintRequested(true)}} className="hint-button" style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
+          {hint}
         </button>
         <button onClick={() => { handleEndGame() }} className="exit-button" style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
           Exit
