@@ -182,16 +182,14 @@ function Profile() {
             </div>
           </div>
         </div>
-        <div class="general" style={{ fontFamily: 'Gamefont' }}>
+        <div class="general" style={{ fontFamily: 'Gamefont', margin: '0 auto', textAlign: 'justify' }}>
           <h1>{userhandle}</h1>
           <br></br>
           <p>Welcome to Lexicrush, a timed word guessing game with a twist...</p>
           <br></br>
-          <span style={{ fontWeight: 'bold' }}>How To Play?</span>
+          <p> Shortest/Longest word modes: Choose a valid answer with as FEW/MANY letters as possible.</p>
           <br></br>
-          <p> Shortest/Longest word modes: Choose a valid answer with as FEW/MANY letters as possible. </p>
-          <br></br>
-          <p>Points are awarded based on how many letters shorter/longer your answer was than your opponents</p>
+          <p>Win 1 coin for every letter you beat your opponent by. Buy hints for 10 coins each!</p>
           <br></br>
         </div>
       </div>
