@@ -6,14 +6,14 @@ import { set } from 'animejs';
 
 function Longest() {
   // SERVER IP
-  const URL = 'http://157.230.61.120:8080';
+  const URL = 'http://localhost:8080';
 
   const navigate = useNavigate();
   const accessToken = localStorage.getItem('token') || 'null | 0';
   const username = accessToken.split('|')[0] || 'null | 0';
 
   // Game status
-  const [round, setRound] = useState(1);
+  const [round, setRound] = useState(0);
   const [roundResult, setRoundResult] = useState('');
   const [currentQuestion, setCurrentQuestion] = useState('');
   const [currentScore, setCurrentScore] = React.useState(0);
@@ -23,15 +23,16 @@ function Longest() {
   const [currentAnswer, setCurrentAnswer] = useState('');
   const [botAnswer, setBotAnswer] = useState('');
   const [helloVisible, setHelloVisible] = useState(false);
+  
 
   // Hint status
   const [hintVisible, setHintVisible] = useState(false);
-  const [buyHint, setBuyHint] = useState(false);
+  const [hint, setHint] = useState('');
 
   // Pending status
   const [pending, setPending] = useState(false);
   const [refreshScore, setRefreshScore] = useState(false);
-  const [answerIsCorrect, setAnswerIsCorrect] = useState('unknown');
+  const [answerIsCorrect, setAnswerIsCorrect] = useState(false);
 
   //gameover message is stored in local storage. set it to empty string
   localStorage.setItem('gameoverMessage', '');
@@ -66,7 +67,7 @@ function Longest() {
   useEffect(() => {
     if (answerIsCorrect === false) {
 
-      axios.post(URL + '8080/api/checkans', {
+      axios.post(URL + '/api/checkans', {
         question: currentQuestion,
         answer: currentAnswer,
       }, {
@@ -80,6 +81,8 @@ function Longest() {
             setAnswerIsCorrect(true);
           } else {
             setAnswerIsCorrect(false);
+            setHelloVisible(true);
+            setRoundResult('Sorry, thats NOT a valid Answer! ');
             setPending(false);
           }
         })
@@ -90,10 +93,9 @@ function Longest() {
     }
   }, [pending])
 
-
   // Get bot answer when enter is pressed and checkans says the answer is correct
   useEffect(() => {
-    if (pending && botAnswer.length === 0 && answerIsCorrect === true) {
+    if (pending && botAnswer.length === 0 && answerIsCorrect) {
       axios.get(URL + '/api/bot', {
         params: {
           question: currentQuestion
@@ -116,8 +118,7 @@ function Longest() {
     console.log('currentAnswer:', currentAnswer);
     console.log('botAnswer:', botAnswer);
 
-
-    if (currentAnswer.length > 0 && botAnswer.length > 0) {
+    if (currentAnswer.length > 0 && botAnswer.length > 0 ) {
       axios.post(URL + '/api/updateCurrentScore', {
         playerAnswer: currentAnswer,
         botAnswer: botAnswer,
@@ -138,7 +139,7 @@ function Longest() {
           console.error(error)
         });
     }
-  }, [pending, botAnswer, answerIsCorrect])
+  }, [botAnswer])
 
   // Fetch the updated current score from backend
   useEffect(() => {
@@ -186,6 +187,28 @@ function Longest() {
       .catch(error => console.error(error));
   }
 
+// write use effect to check if hintVisible is true
+
+  useEffect(() => {
+    if (hintVisible) {
+      axios.get(URL + '/api/useHint', {
+        question: currentQuestion,
+      }, {
+        headers: {
+          'Access-Token': accessToken,
+        }
+      })
+        .then(response => {
+          console.log(response);
+          setHint(response.data);
+          setHintVisible(false);
+        })
+        .catch(error => console.error(error));
+    }
+  }, [hintVisible])
+
+
+
   // Check if user is logged in
   if (accessToken === 'null | 0') { // if user is not logged in
     navigate('/login');
@@ -202,6 +225,9 @@ function Longest() {
     }
   }
 
+  // define threeorten. if round is 0, set to 3, else set to 10
+ 
+
 
 
   return (
@@ -212,11 +238,11 @@ function Longest() {
         <div class="av">
           <div class="av-eye"></div>
         </div>
-        <div className="timer-container" style={{ position: 'relative', top: 15, right: -340 }}>
-          <Time key={remainingTime} initialTime={10} onTimeOver={handleTimeOver} />
+        <div className="timer-container" style={{ position: 'relative', top: 15, right: -340}}>
+          <Time key={remainingTime} initialTime={round === 0 ? 3 : 10} onTimeOver={handleTimeOver} />
         </div>
         <div className='round-container' style={{ fontFamily: "Gamefont" }}>
-          {"Round " + round}
+          {round >= 1 ? "Round " + round : "Loading Lexicrush..."}
         </div>
       </div>
       <div className="rectangle-left">
@@ -242,19 +268,17 @@ function Longest() {
           <div class="avbot-eye"></div>
         </div>
       </div>
-      <div className="question-position" style={{ fontFamily: "Gamefont" }}>{currentQuestion}
-        {/* // displays current Q */}
+      <div className="question-position" style={{ fontFamily: "Gamefont" }}>{round ? currentQuestion : "Starting game..."}
         <div>
           {helloVisible &&
             <div className="xanswer" style={{ fontFamily: "Gamefont" }}>
-              {roundResult + "current score is: " + currentScore}
+              {roundResult}
             </div>
           }
           {botAnswer &&
             <div className="botAnswer" style={{ color: "white", fontFamily: "Gamefont" }}>
               {"@BOT123 Chose: " + botAnswer}
             </div>
-
           }
 
         </div>
