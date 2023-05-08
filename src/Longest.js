@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import "./Longest.css";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { set } from 'animejs';
 
 function Longest() {
   // SERVER IP
@@ -190,24 +189,26 @@ function Longest() {
 
 // write use effect to check if hintVisible is true
 
-  useEffect(() => {
-    if (HintRequested) {
-      axios.get(URL + '/api/useHint', {
+useEffect(() => {
+  if (HintRequested) {
+    axios.get(URL + '/api/useHint', {
+      headers: {
+        'Access-Token': accessToken,
+        'Content-Type': 'form-data',
+      },
+      params: {
         question: currentQuestion,
-      }, {
-        headers: {
-          'Access-Token': accessToken,
-          'Content-Type': 'form-data',
-        }
+      },
+    })
+      .then(response => {
+        console.log(response);
+        setHint(response.data);
+        setHintRequested(false);
       })
-        .then(response => {
-          console.log(response);
-          setHint(response.data);
-          setHintRequested(false);
-        })
-        .catch(error => console.error(error));
-    }
-  }, [HintRequested])
+      .catch(error => console.error(error));
+  }
+}, [HintRequested, currentQuestion, accessToken])
+
 
 
 
@@ -256,7 +257,7 @@ function Longest() {
       </div>
       <div className="rectangle-left">
         <h1 class="player-name" style={{ fontFamily: "Gamefont" }} >{username}</h1>
-        <button onClick={() => { setHintRequested(true)}} className="hint-button" style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
+        <button onClick={() => { setHintRequested(true)}} className="hint-button" style={{ display: 'block', marginBottom: '10px', fontFamily: 'Gamefont' }}>
           {hint}
         </button>
         <button onClick={() => { handleEndGame() }} className="exit-button" style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>

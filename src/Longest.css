@@ -412,6 +412,7 @@ html::after {
   background-color: #4c2a67;
   color: #fff;
   padding: 10px 20px;
+  size: 40px;
   cursor: pointer;
   border: none;
   transform: translateX(0px) translateY(450px);
