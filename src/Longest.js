@@ -21,6 +21,10 @@ function Longest() {
   const [botAnswer, setBotAnswer] = useState('');
   const [helloVisible, setHelloVisible] = useState(false);
 
+  // Hint status
+  const [hintVisible, setHintVisible] = useState(false);
+  const [buyHint, setBuyHint] = useState(false);
+
   // Pending status
   const [pending, setPending] = useState(false);
   const [refreshScore, setRefreshScore] = useState(false);
@@ -189,11 +193,12 @@ function Longest() {
     const currentTime = new Date().getTime();
 
     if (currentTime - tokenTime > 1000 * 60 * 60 * 2) { // if token is older than 2 hours
-      localStorage.removeItem('token'); // remove token from local storage
       alert('Your session has expired. Please log in again.'); // alert user
+      localStorage.removeItem('token'); // remove token from local storage
       navigate("/auth"); // redirect to login page
     }
   }
+
 
 
   return (
@@ -213,9 +218,9 @@ function Longest() {
       </div>
       <div className="rectangle-left">
         <h1 class="player-name" style={{ fontFamily: "Gamefont" }} >{username}</h1>
-        {/* <button onClick={() => { setHintVisible(true) }} className="hint-button" style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
-          {hint}
-        </button> */}
+        <button onClick={() => { setHintVisible(true)}} className="hint-button" style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
+          {"Hint"}
+        </button>
         <button onClick={() => { handleEndGame() }} className="exit-button" style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
           Exit
         </button>

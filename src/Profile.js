@@ -190,9 +190,9 @@ function Profile() {
           <span style={{ fontWeight: 'bold' }}>How To Play?</span>
           <br></br>
           <p> Shortest/Longest word modes: Choose a valid answer with as FEW/MANY letters as possible. </p>
-          <br></br>
+          {/* <br></br>
           <p>Points are awarded based on how many letters shorter/longer your answer was than your opponents</p>
-          <br></br>
+          <br></br> */}
         </div>
       </div>
       <div class="a">
