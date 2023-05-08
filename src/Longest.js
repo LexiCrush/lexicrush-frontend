@@ -6,7 +6,7 @@ import { set } from 'animejs';
 
 function Longest() {
   // SERVER IP
-  const URL = 'https://157.230.61.120:8080';
+  const URL = 'http://157.230.61.120:8080';
 
   const navigate = useNavigate();
   const accessToken = localStorage.getItem('token') || 'null | 0';
