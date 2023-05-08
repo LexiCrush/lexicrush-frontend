@@ -6,7 +6,8 @@ import { set } from 'animejs';
 
 function Auth() {
   // SERVER IP
-  const URL = 'http://localhost:8080';
+  // const URL = 'http://localhost:8080';
+  const URL = 'http://157.230.61.120:8080';
 
   // if there is a token in local storage, redirect to gamepage
   const accessToken = localStorage.getItem('token');

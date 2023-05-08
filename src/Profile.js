@@ -6,7 +6,9 @@ import { set } from 'animejs';
 
 function Profile() {
   // SERVER IP
-  const URL = 'http://localhost:8080';
+  // const URL = 'http://localhost:8080';
+  const URL = 'http://157.230.61.120:8080';
+
   // token is from local storage or if not there, null
   const token = localStorage.getItem('token') || 'null | 0';
   const username = token.split('|')[0] || 'null | 0';

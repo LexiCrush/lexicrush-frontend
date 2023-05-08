@@ -5,7 +5,8 @@ import axios from 'axios';
 
 function Longest() {
   // SERVER IP
-  const URL = 'http://localhost:8080';
+  // const URL = 'http://localhost:8080';
+  const URL = 'http://157.230.61.120:8080';
 
   const navigate = useNavigate();
   const accessToken = localStorage.getItem('token') || 'null | 0';
