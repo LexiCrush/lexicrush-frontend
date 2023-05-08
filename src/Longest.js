@@ -274,11 +274,6 @@ useEffect(() => {
         <button onClick={() => { handleEndGame() }} className="exit-button" style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
           Exit
         </button>
-        <div id="saturn">
-          <div class="plan bottom plan-bg"></div>
-          <div class="rings"></div>
-          <div class="plan top plan-bg"></div>
-        </div>
         <div class="score-position" style={{ fontFamily: "Gamefont" }}>{currentScore}</div>
       </div>
       <div className="rectangle-right">

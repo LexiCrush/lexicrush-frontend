@@ -189,11 +189,11 @@ function Profile() {
         <div class="general" style={{ fontFamily: 'Gamefont', margin: '0 auto', textAlign: 'justify' }}>
           <h1>{userhandle}</h1>
           <br></br>
-          <p>Welcome to Lexicrush, a timed word guessing game with a twist...</p>
+          <p> Welcome to Lexicrush, a timed word guessing game with a twist...</p>
           <br></br>
-          <p> Shortest/Longest word modes: Choose a valid answer with as FEW/MANY letters as possible.</p>
+          <p> Begins/Ends with letter mode: Choose a valid answer with as MANY letters as possible.</p>
           <br></br>
-          <p>Win 1 coin for every letter you beat your opponent by. Buy hints for 10 coins each!</p>
+          <p> Win 1 coin for every letter you beat your opponent by. Buy hints for 10 coins each!</p>
           <br></br>
         </div>
       </div>
