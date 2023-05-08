@@ -5,6 +5,9 @@ import axios from 'axios';
 import { set } from 'animejs';
 
 function Longest() {
+  // SERVER IP
+  const URL = 'http://157.230.61.120:8080';
+
   const navigate = useNavigate();
   const accessToken = localStorage.getItem('token') || 'null | 0';
   const username = accessToken.split('|')[0] || 'null | 0';
@@ -52,7 +55,7 @@ function Longest() {
   }
 
   useEffect(() => { // get a new question
-    axios.get('http://localhost:8080/api/getq')
+    axios.get(URL + '/api/getq')
       .then(response => {
         console.log('Current Question:', currentQuestion);
         setCurrentQuestion(response.data);
@@ -63,7 +66,7 @@ function Longest() {
   useEffect(() => {
     if (answerIsCorrect === false) {
 
-      axios.post('http://localhost:8080/api/checkans', {
+      axios.post(URL + '8080/api/checkans', {
         question: currentQuestion,
         answer: currentAnswer,
       }, {
@@ -91,7 +94,7 @@ function Longest() {
   // Get bot answer when enter is pressed and checkans says the answer is correct
   useEffect(() => {
     if (pending && botAnswer.length === 0 && answerIsCorrect === true) {
-      axios.get('http://localhost:8080/api/bot', {
+      axios.get(URL + '/api/bot', {
         params: {
           question: currentQuestion
         }
@@ -115,7 +118,7 @@ function Longest() {
 
 
     if (currentAnswer.length > 0 && botAnswer.length > 0) {
-      axios.post('http://localhost:8080/api/updateCurrentScore', {
+      axios.post(URL + '/api/updateCurrentScore', {
         playerAnswer: currentAnswer,
         botAnswer: botAnswer,
         question: currentQuestion
@@ -140,7 +143,7 @@ function Longest() {
   // Fetch the updated current score from backend
   useEffect(() => {
     if (refreshScore) {
-      axios.get('http://localhost:8080/api/getCurrentScore', {
+      axios.get(URL + '/api/getCurrentScore', {
         headers: {
           'Access-Token': accessToken,
         }
@@ -169,7 +172,7 @@ function Longest() {
 
   const handleEndGame = () => {
 
-    axios.post('http://localhost:8080/api/endGame', {
+    axios.post(URL + '/api/endGame', {
     }, {
       headers: {
         'Access-Token': accessToken

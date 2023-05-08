@@ -5,6 +5,8 @@ import axios from 'axios';
 import { set } from 'animejs';
 
 function Profile() {
+  // SERVER IP
+  const URL = 'http://157.230.61.120:8080';
   // token is from local storage or if not there, null
   const token = localStorage.getItem('token') || 'null | 0';
   const username = token.split('|')[0] || 'null | 0';
@@ -26,7 +28,7 @@ function Profile() {
       setHighScore('Login/Register to Play!');
     }
     console.log('Get updated score: ' + token);
-    axios.get('http://localhost:8080/api/getHighScore', {
+    axios.get(URL + '/api/getHighScore', {
       headers: {
         'Access-Token': token,
       }
@@ -42,7 +44,7 @@ function Profile() {
       setHighScore('Login/Register to Play!');
     }
     console.log('Get updated score: ' + token);
-    axios.get('http://localhost:8080/api/getNumGames', {
+    axios.get(URL + '/api/getNumGames', {
       headers: {
         'Access-Token': token,
       }
@@ -57,7 +59,7 @@ function Profile() {
 
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/getHintCount', {
+    axios.get(URL + '/api/getHintCount', {
       headers: {
         'Access-Token': token,
       }
@@ -71,7 +73,7 @@ function Profile() {
 
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/getCoinCount', {
+    axios.get(URL + '/api/getCoinCount', {
       headers: {
         'Access-Token': token,
       }
@@ -91,7 +93,7 @@ function Profile() {
         setHintRequested(false);
         return;
       }
-      axios.post('http://localhost:8080/api/buyHint', {}, {
+      axios.post(URL + '/api/buyHint', {}, {
         headers: {
           'Access-Token': token,
         }

@@ -5,6 +5,9 @@ import axios from 'axios';
 import { set } from 'animejs';
 
 function Auth() {
+  // SERVER IP
+  const URL = 'http://157.230.61.120:8080';
+
   // if there is a token in local storage, redirect to gamepage
   const accessToken = localStorage.getItem('token');
   const [goToGame, setGoToGame] = React.useState(false);
@@ -51,7 +54,7 @@ function Auth() {
       return;
     }
 
-    axios.post('http://localhost:8080/auth/register', {
+    axios.post(URL + '/auth/register', {
       username: username,
       password: password,
     }, {
@@ -78,7 +81,7 @@ function Auth() {
     const username = evt.target.username.value;
     const password = evt.target.password.value;
 
-    axios.post('http://localhost:8080/auth/login', {
+    axios.post(URL + '/auth/login', {
       username: username,
       password: password,
     }, {
