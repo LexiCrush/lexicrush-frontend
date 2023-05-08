@@ -25,7 +25,9 @@ function Longest() {
 
   // Pending status
   const [pending, setPending] = useState(false);
-  const [refreshScore, setRefreshScores] = useState(false);
+  const [refreshScore, setRefreshScore] = useState(false);
+  const [answersIsCorrect, setAnswersIsCorrect] = useState(false);
+
 
 
   function handleTimeOver() {
@@ -73,6 +75,7 @@ function Longest() {
     }
   }, [pending])
 
+
   // Handle scoring when bot answer is retreived
   useEffect(() => {
     if (pending && currentAnswer.length > 0 && botAnswer.length > 0) {
@@ -93,10 +96,10 @@ function Longest() {
         .then(response => {
           console.log(response);
           setRoundResult(response.data);
-          setRefreshScores(true);
+          setRefreshScore(true);
         })
         .catch(error => {
-          setRefreshScores(false);
+          setRefreshScore(false);
           console.error(error)
         });
     }
@@ -113,7 +116,7 @@ function Longest() {
       })
         .then(response => {
           setCurrentScore(response.data);
-          setRefreshScores(false);
+          setRefreshScore(false);
           setHelloVisible(true);
           setPending(false);
         })
@@ -125,11 +128,38 @@ function Longest() {
 
   const handleAnswerChange = (e) => {
     setCurrentAnswer(e.target.value); // this is the text in the input field
+
   }
+
+
+  
+  useEffect(() => {
+    axios.post('http://localhost:8080/api/checkans', {
+      question: currentQuestion,
+      answer: currentAnswer,
+    }, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }
+    })
+      .then(response => {
+        console.log(response);
+        if (response.data >= 1) {
+          setAnswersIsCorrect(true);
+        } else {
+          setAnswersIsCorrect(false);
+        }
+      })
+
+      .catch(error => {
+        console.error(error);
+        setAnswersIsCorrect(false);
+      });
+  }, [currentQuestion, currentAnswer])
 
   const handleKeyDown = (e) => {
     if (e.keyCode === 13) { // Enter key
-      // e.preventDefault(); // prevent the default action (submitting the form) when pressing enter key in input field
+      e.preventDefault(); // prevent the default action (submitting the form) when pressing enter key in input field
       setPending(true);
     }
   }
@@ -151,12 +181,12 @@ function Longest() {
       .catch(error => console.error(error));
   }
 
+  // Check if user is logged in
   if (accessToken === 'null | 0') { // if user is not logged in
     navigate('/login');
   }
 
   else { // if a user is properly logged in
-
     const tokenTime = accessToken.split('|')[1];
     const currentTime = new Date().getTime();
 
@@ -164,7 +194,6 @@ function Longest() {
       localStorage.removeItem('token'); // remove token from local storage
       alert('Your session has expired. Please log in again.'); // alert user
       navigate("/auth"); // redirect to login page
-
     }
   }
 
