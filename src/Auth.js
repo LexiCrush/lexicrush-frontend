@@ -2,19 +2,19 @@ import React from 'react';
 import './Auth.css';
 import { Navigate } from "react-router-dom";
 import axios from 'axios';
+import { set } from 'animejs';
 
 function Auth() {
   // if there is a token in local storage, redirect to gamepage
   const accessToken = localStorage.getItem('token');
   const [goToGame, setGoToGame] = React.useState(false);
+  const [tokenTime, setTokenTime] = React.useState(0);
+  const [currentTime, setCurrentTime] = React.useState(0);
 
 
   if (accessToken) {
-
-    const tokenTime = accessToken.split('|')[1];
-    const currentTime = new Date().getTime();
-
-    if (currentTime - tokenTime > 1000 * 60 * 60 * 2) { // if token is older than 2 hours
+    
+    if (accessToken.split('|')[1] - Date.now() > 1000 * 60 * 60 * 2) { // if token is older than 2 hours
       localStorage.removeItem('token'); // remove token from local storage
       alert('Your session has expired. Please log in again.'); // alert user
       return <Navigate to="/auth" />; // redirect to login page
@@ -60,9 +60,8 @@ function Auth() {
       }
     })
       .then((response) => {
-        const username = response.data;
-        if (username) {
-          alert(`Success! ${username} has been registered with Lexicrush`);
+        if (response.data) {
+          alert(`Success! ${response.data} has been registered with Lexicrush`);
           document.getElementById("chk").checked = true;
         } else {
           alert(`An account with that username already exists`);
@@ -88,9 +87,8 @@ function Auth() {
       }
     })
       .then((response) => {
-        const token = response.data;
-        if (token.includes("|")) {
-          localStorage.setItem('token', token);
+        if (response.data.includes("|")) {
+          localStorage.setItem('token', response.data);
           alert(`Login successful!`);
           setGoToGame(true);
         } else {

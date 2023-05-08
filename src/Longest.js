@@ -75,7 +75,7 @@ function Longest() {
 
   // Handle scoring when bot answer is retreived
   useEffect(() => {
-    if (pending && currentAnswer.length > 0 && botAnswer.length > 0 ) {
+    if (pending && currentAnswer.length > 0 && botAnswer.length > 0) {
       console.log('Handle score');
       // console.log('Player Answer:', currentAnswer);
       // console.log('Bots Answer:', botAnswer);
@@ -106,7 +106,7 @@ function Longest() {
   useEffect(() => {
     if (refreshScore) {
       console.log('Get updated score: ' + accessToken);
-      axios.get('http://localhost:8080/api/getCurrentScore',{
+      axios.get('http://localhost:8080/api/getCurrentScore', {
         headers: {
           'Access-Token': accessToken,
         }
@@ -118,7 +118,7 @@ function Longest() {
           setPending(false);
         })
         .catch(error => console.error(error));
- 
+
       // console.log('Current Score:', currentScore);
     }
   }, [refreshScore])
@@ -151,8 +151,21 @@ function Longest() {
       .catch(error => console.error(error));
   }
 
-  if (accessToken === 'null | 0') {
+  if (accessToken === 'null | 0') { // if user is not logged in
     navigate('/login');
+  }
+
+  else { // if a user is properly logged in
+
+    const tokenTime = accessToken.split('|')[1];
+    const currentTime = new Date().getTime();
+
+    if (currentTime - tokenTime > 1000 * 60 * 60 * 2) { // if token is older than 2 hours
+      localStorage.removeItem('token'); // remove token from local storage
+      alert('Your session has expired. Please log in again.'); // alert user
+      navigate("/auth"); // redirect to login page
+
+    }
   }
 
 
@@ -167,12 +180,12 @@ function Longest() {
         <div className="timer-container" style={{ position: 'relative', top: 15, right: -340 }}>
           <Time key={remainingTime} initialTime={8} onTimeOver={handleTimeOver} />
         </div>
-        <div className='round-container'  style={{fontFamily: "Gamefont" }}>
+        <div className='round-container' style={{ fontFamily: "Gamefont" }}>
           {"Round " + round}
         </div>
       </div>
       <div className="rectangle-left">
-        <h1 class="player-name" style={{fontFamily: "Gamefont" }} >{username}</h1>
+        <h1 class="player-name" style={{ fontFamily: "Gamefont" }} >{username}</h1>
         {/* <button onClick={() => { setHintVisible(true) }} className="hint-button" style={{ display: 'block', marginBottom: '10px', fontFamily: 'ButtonFont' }}>
           {hint}
         </button> */}
@@ -184,21 +197,21 @@ function Longest() {
           <div class="rings"></div>
           <div class="plan top plan-bg"></div>
         </div>
-        <div class="score-position" style={{fontFamily: "Gamefont" }}>{currentScore}</div>
+        <div class="score-position" style={{ fontFamily: "Gamefont" }}>{currentScore}</div>
       </div>
       <div className="rectangle-right">
-        <h1 class="bot-name" style={{fontFamily: "Gamefont" }}>Bot</h1>
+        <h1 class="bot-name" style={{ fontFamily: "Gamefont" }}>Bot</h1>
       </div>
       <div className="squarebot">
         <div class="avbot">
           <div class="avbot-eye"></div>
         </div>
       </div>
-      <div className="question-position"  style={{fontFamily: "Gamefont" }}>{currentQuestion}
+      <div className="question-position" style={{ fontFamily: "Gamefont" }}>{currentQuestion}
         {/* // displays current Q */}
         <div>
           {helloVisible &&
-            <div className="xanswer"  style={{fontFamily: "Gamefont" }}>
+            <div className="xanswer" style={{ fontFamily: "Gamefont" }}>
               {roundResult + "current score is: " + currentScore}
             </div>
           }
