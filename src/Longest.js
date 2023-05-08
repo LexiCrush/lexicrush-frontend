@@ -23,17 +23,20 @@ function Longest() {
   const [currentAnswer, setCurrentAnswer] = useState('');
   const [botAnswer, setBotAnswer] = useState('');
   const [helloVisible, setHelloVisible] = useState(false);
+
+  // Form
+  const [displayInput, setDisplayInput] = useState(true);
   
 
   // Hint status
   const [HintRequested, setHintRequested] = useState(false);
-  const [hint, setHint] = useState('');
+  const [hint, setHint] = useState('Use a HINT!');
 
   // Pending status
   const [pending, setPending] = useState(false);
   const [refreshScore, setRefreshScore] = useState(false);
   const [answerIsCorrect, setAnswerIsCorrect] = useState(false);
-  const [roundDuration, setRoundDuration] = useState(3);
+  const [roundDuration, setRoundDuration] = useState(5);
 
   //gameover message is stored in local storage. set it to empty string
   localStorage.setItem('gameoverMessage', '');
@@ -46,6 +49,9 @@ function Longest() {
       // navigate('/gameover');
     } else {
       setRound(round + 1); // increase the round
+      setDisplayInput(true);
+      setHintRequested(false); // reset the hint
+      setHint('Use a HINT!'); // reset the hint
       setCurrentAnswer("");
       setAnswerIsCorrect(false);
       setPending(false);
@@ -134,6 +140,10 @@ function Longest() {
           console.log(response);
           setRoundResult(response.data);
           setRefreshScore(true);
+          setDisplayInput(false);
+          // set remaining time to 0
+          
+
         })
         .catch(error => {
           setRefreshScore(false);
@@ -231,11 +241,11 @@ useEffect(() => {
 
 
   useEffect(() => {
-    if (!round) {
-      setRoundDuration(3);
+    if (round == 0) {
+      setRoundDuration(5);
     }
     else {
-      setRoundDuration(15);
+      setRoundDuration(10);
     }
   }, [round])
  
@@ -295,10 +305,12 @@ useEffect(() => {
         </div>
       </div>
       <p>
-        <span className="xx"> {/* user text input box */}
+      {displayInput ? 
+        <span className="xx">
           <input type="text" value={currentAnswer} placeholder="Enter" onKeyDown={handleKeyDown} onChange={handleAnswerChange} />
           <span class="my-span"></span>
         </span>
+        : null}
       </p>
       <div class="scene" style={{ zIndex: "-1" }}>
         <div class="space" style={{ zIndex: "-1" }} >
@@ -347,8 +359,8 @@ function Time(props) {
   return (
     <div>
       <div>{timeLeft}</div>
-      <button onClick={stopTimer}>Stop</button>
-      <button onClick={restartTimer}>Restart</button>
+      {/* <button onClick={stopTimer}>Stop</button>
+      <button onClick={restartTimer}>Restart</button> */}
     </div>
   );
 }
