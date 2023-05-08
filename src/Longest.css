@@ -570,5 +570,7 @@ input {
 }
 
 .score-position {
-  transform: translate(22%, -1390%);
+  position: fixed;
+  top: 30px;
+  left: 138px;
 }

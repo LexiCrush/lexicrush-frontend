@@ -7,6 +7,7 @@ import Longest from './Longest';
 import Test from './Test';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Profile from './Profile';
+import Leaderboard from "./Leaderboard"
 
 function App() {
   const headingStyle = {
@@ -42,6 +43,8 @@ function App() {
             <Route path= "/longest" element={<Longest />} />
             <Route path = "/test" element={<Test />} />
             <Route path = "/profile" element={<Profile />} /> 
+            <Route path = "/leaderboard" element={<Leaderboard />} /> 
+
           </Routes>
         </Router>
       </header>
