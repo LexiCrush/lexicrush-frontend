@@ -4,6 +4,18 @@
 - npm i
 - npm start
 
+# Front-End Layout/Demo
+
+![Landing Page - (/)](Landing_Page.png?raw=true "Optional Title")
+
+![Profile+Instructions - (/)](Profile+Instructions.png?raw=true "Optional Title")
+
+![User Stats - (/)](User_Stats.png?raw=true "Optional Title")
+
+![Start Game - (/)](Start_Game.png?raw=true "Optional Title")
+
+![Question - (/)](Question.png?raw=true "Optional Title")
+
 
 # Getting Started with Create React App
 
