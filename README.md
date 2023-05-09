@@ -6,15 +6,15 @@
 
 # Front-End Layout ("Main" Pages)
 ## Landing Page
-![Landing Page](demo/Landing_Page.png?raw=true "Landing Page")
+![Landing Page](/demo/Landing_Page.png?raw=true "Landing Page")
 ## Profile
-![Profile+Instructions](demo/Profile+Instructions.png?raw=true "Profile")
+![Profile+Instructions](/demo/Profile+Instructions.png?raw=true "Profile")
 ## Stats
-![User Stats](demo/User_Stats.png?raw=true "Stats")
+![User Stats](/demo/User_Stats.png?raw=true "Stats")
 ## Start
-![Start Game](demo/Start_Game.png?raw=true "Start")
+![Start Game](/demo/Start_Game.png?raw=true "Start")
 ## Question
-![Question](demo/Question.png?raw=true "Question")
+![Question](/demo/Question.png?raw=true "Question")
 
 
 # Getting Started with Create React App
